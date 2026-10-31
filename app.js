@@ -199,8 +199,10 @@
       '<section class="hero">' +
         '<p class="series">' + esc(m.brand) + "の無料教材</p>" +
         "<h1>" + esc(m.bookTitle) + "</h1>" +
-        '<p class="hero-lead">まっちゃんとカワウソと楽しむ、身近なお宝探し。<br>お店で「どこを見て、何を調べて、どう決めるか」を、ひとつずつ身につけよう。</p>' +
+        '<p class="hero-lead">まっちゃんとかわのすけと楽しむ、<br>放課後のお宝探し。</p>' +
+        '<p class="hero-sub">お店で「どこを見て、何を調べて、どう決めるか」。<br>二人と一緒に、仕入れのコツをひとつずつ覚えていこう。</p>' +
         '<div class="hero-poses">' + pose("matchan", "good") + pose("kawauso", "joy") + "</div>" +
+        '<div class="profiles">' + profile("matchan") + profile("kawauso") + "</div>" +
         talk([
           { who: "kawauso", face: "think", text: "お店の商品、どれを見ればいいのか分からなくて…。" },
           { who: "matchan", text: "最初は「見る順番」を覚えるだけで大丈夫。==見つける → 調べる → 判断する==の3ステップで進めよう。" }
@@ -210,13 +212,13 @@
     html += '<section class="first-steps"><h2>まずはここから</h2><ol class="step-cards">' +
       stepCard(1, "kiso-howto", "この本の使い方（1分）", "読む → 解く → 戻る の進め方") +
       stepCard(2, "kiso-3steps", "見つける・調べる・判断する", "お店で迷わないための3ステップ") +
-      stepCard(3, "bag-material", "バッグ：本革か合皮かを見る", "最初の1項目を読んで、問題を解いてみよう") +
+      stepCard(3, "bag-material", "バッグ：本革か合皮かを見る", "最初の1項目を読んで、ドリルにチャレンジ！") +
       "</ol></section>";
 
     if (started) {
       html += '<section class="card progress-card"><h2>あなたの進み具合</h2>' +
         '<p>読んだ項目 <b>' + nRead + "</b> / " + DB.order.length + "</p>" + progressBar(nRead, DB.order.length) +
-        '<p>正解した問題 <b>' + nSolved + "</b> / " + DB.questions.length + "</p>" + progressBar(nSolved, DB.questions.length) +
+        '<p>ドリルで正解した問題 <b>' + nSolved + "</b> / " + DB.questions.length + "</p>" + progressBar(nSolved, DB.questions.length) +
         "</section>";
     }
 
@@ -232,10 +234,17 @@
 
     html += '<div class="entry">' +
       '<a class="btn primary big" href="#/book">目次を見る<small>' + DB.order.length + "項目</small></a>" +
-      '<a class="btn accent big" href="#/quiz">問題集を解く<small>' + DB.questions.length + "問</small></a>" +
+      '<a class="btn accent big" href="#/quiz">ドリルにチャレンジ！<small>' + DB.questions.length + "問</small></a>" +
       "</div>" +
       '<p class="small muted center">最終更新：' + esc(m.updated) + "（v" + esc(m.version) + '）　<a href="#/updates">更新履歴</a></p>';
     return html;
+  }
+  // 表紙の二人の紹介（初めて紹介する場所なので、かわのすけは「カワウソのかわのすけ」と書く）
+  function profile(who) {
+    var c = DB.chara[who];
+    if (!c) return "";
+    return '<div class="profile ' + esc(who) + '">' + avatar(who) +
+      "<p><b>" + esc(c.fullName || c.name) + "</b>" + esc(c.profile || "") + "</p></div>";
   }
   function stepCard(n, id, title, sub) {
     var done = readMap()[id];
@@ -255,14 +264,14 @@
       p.chapters.forEach(function (ch) {
         var hasQ = DB.questions.some(function (q) { return q.genre === ch.genre; });
         html += '<div class="toc-chapter"><h3>' + esc(ch.title) +
-          (hasQ && ch.genre && ch.genre !== "kiso" ? ' <a class="chip" href="#/quiz/play?genre=' + esc(ch.genre) + '">問題を解く</a>' : "") +
+          (hasQ && ch.genre && ch.genre !== "kiso" ? ' <a class="chip" href="#/quiz/play?genre=' + esc(ch.genre) + '">ドリルにチャレンジ！</a>' : "") +
           "</h3><ol>";
         ch.sections.forEach(function (s) {
           var n = questionsFor(s.id).length;
           html += '<li><a href="#/book/' + esc(s.id) + '">' +
             "<span>" + esc(s.title) + "<small>" + esc(s.hook || s.summary) + "</small></span>" +
             '<span class="toc-badges">' + (read[s.id] ? '<span class="badge read">読んだ</span>' : "") +
-            (n ? '<span class="badge q">問題' + n + "</span>" : "") + "</span></a></li>";
+            (n ? '<span class="badge q">ドリル' + n + "問</span>" : "") + "</span></a></li>";
         });
         html += "</ol></div>";
       });
@@ -307,7 +316,7 @@
           '<p class="term-word"><span>正式な呼び方</span><b>' + esc(b.word) + "</b>" + (b.reading ? "<small>（" + esc(b.reading) + "）</small>" : "") + "</p>" +
           (b.note ? '<p class="term-note">' + inline(b.note) + "</p>" : "") + "</div>";
       case "memo":
-        return '<div class="memo"><p class="memo-title">ここを覚えよう</p>' + listHtml(b.items) + "</div>";
+        return '<div class="memo"><p class="memo-title">ここがコツ！</p>' + listHtml(b.items) + "</div>";
       case "steps":
         return '<ol class="steps">' + b.items.map(function (i) {
           return "<li><b>" + inline(i.title) + "</b>" + inline(i.text) + "</li>";
@@ -373,10 +382,12 @@
     var html = '<p class="crumbs"><a href="#/book">目次</a> › ' + esc(s.part.title) + " › " + esc(s.chapter.title) + "</p>" +
       '<header class="sec-head g-' + esc(s.part.id) + '">' + icon(s.part.icon || s.part.id) +
       "<div><h1>" + esc(s.title) + "</h1>" + (s.hook ? '<p class="hook">' + inline(s.hook) + "</p>" : "") + "</div></header>" +
-      s.blocks.map(renderBlock).join("");
+      (s.summary ? '<p class="goal"><b>今日はこれができたらOK！</b>' + inline(s.summary) + "</p>" : "") +
+      '<div class="note-page">' + s.blocks.map(renderBlock).join("") + "</div>";
     if (qs.length) {
-      html += '<div class="to-quiz">' + talk([{ who: "kawauso", text: "読んだら、問題で確かめてみよう！" }]) +
-        '<a class="btn accent big" href="#/quiz/play?section=' + esc(id) + '">この項目の問題を解く<small>' + qs.length + "問</small></a></div>";
+      html += '<div class="to-quiz"><p class="to-quiz-title">コツ、つかめた？</p>' +
+        talk([{ who: "kawauso", text: "読んだら、ドリルで腕試ししてみよう！" }]) +
+        '<a class="btn accent big" href="#/quiz/play?section=' + esc(id) + '">ドリルにチャレンジ！<small>この項目から' + qs.length + "問</small></a></div>";
     }
     if (s.sources && s.sources.length) {
       html += '<details class="sources"><summary>この項目の情報源（' + s.sources.length + "件）</summary><ul>" + s.sources.map(function (sid) {
@@ -395,7 +406,7 @@
       "</nav>" +
       '<a class="btn ghost" href="#/book">目次に戻る</a>';
     if (session && !session.done) {
-      html += '<a class="btn primary resume" href="#/quiz/play">問題に戻る（' + (session.i + 1) + "/" + session.ids.length + "問目）</a>";
+      html += '<a class="btn primary resume" href="#/quiz/play">ドリルに戻る（' + (session.i + 1) + "/" + session.ids.length + "問目）</a>";
     }
     return html;
   }
@@ -403,7 +414,8 @@
   // ---------- 画面：問題集トップ ----------
   function viewQuizHome() {
     var last = store("hiden-last") || {};
-    var html = "<h1>秘伝の問題集</h1>" +
+    var html = "<h1>" + esc(DB.meta.quizTitle) + "</h1>" +
+      '<div class="drill-intro"><p>読むだけで終わらず、ちょっと腕試し！<br>かわのすけと一緒に「自分ならどうする？」を考えてみよう。<br>迷ったら秘伝の書を見返してOK。答え合わせで、仕入れのコツをつかもう。</p></div>' +
       talk([{ who: "kawauso", text: "ジャンルを選んでね。答えると、まっちゃんが理由を教えてくれるよ。" }]) +
       '<label class="option"><input type="checkbox" id="opt-shuffle"' + (store("hiden-shuffle") ? " checked" : "") + "> 問題の順番をシャッフルする</label>" +
       '<div class="genre-grid">';
@@ -414,9 +426,9 @@
         "<b>" + esc(g.label) + "</b><small>" + n + "問" + (l ? "・前回 " + l.score + "/" + l.total : "") + "</small></a>";
     });
     html += "</div>" +
-      '<a class="btn primary" href="#/quiz/play?genre=all">全ジャンルから解く（' + DB.questions.length + "問）</a>";
+      '<a class="btn primary" href="#/quiz/play?genre=all">全ジャンルからチャレンジ！（' + DB.questions.length + "問）</a>";
     if (session && !session.done) {
-      html += '<a class="btn accent" href="#/quiz/play">解答中の問題に戻る（' + (session.i + 1) + "/" + session.ids.length + "問目）</a>";
+      html += '<a class="btn accent" href="#/quiz/play">とちゅうのドリルに戻る（' + (session.i + 1) + "/" + session.ids.length + "問目）</a>";
     }
     html += '<div class="card small"><b>採点について</b><br>四択は、正解が1つだけになる条件で作っています。穴埋めは、全角・半角、カンマ（1,750 / 1750）、「円」などの単位、ひらがな・カタカナの違いを同じ答えとして採点します。</div>';
     return html;
@@ -443,7 +455,7 @@
   // ---------- 画面：解答 ----------
   function viewPlay() {
     if (!session) return viewQuizHome();
-    if (!session.ids.length) return '<p>この条件の問題はまだありません。</p><a class="btn" href="#/quiz">問題集トップへ</a>';
+    if (!session.ids.length) return '<p>この条件の問題はまだありません。</p><a class="btn" href="#/quiz">ドリルの一覧へ</a>';
     if (session.i >= session.ids.length) return viewResult();
     var q = DB.qById[session.ids[session.i]];
     var a = session.answers[q.id];
@@ -455,6 +467,7 @@
       (q.scene ? talk(q.scene) : "") +
       (q.image ? figure(q.image, { quiz: true }) : "") +
       (q.tag ? tagHtml(q.tag) : "") +
+      '<p class="q-lead">こんなとき、どうする？</p>' +
       '<p class="q-text">' + inline(q.question) + "</p>" +
       (q.condition ? '<div class="q-cond"><b>条件</b>' + inline(q.condition) + "</div>" : "") +
       (q.point ? '<p class="q-point"><b>考えるポイント</b>' + inline(q.point) + "</p>" : "");
@@ -479,14 +492,14 @@
     if (a) {
       var correctText = q.type === "choice" ? "ABCD"[q.answer] + "．" + inline(q.choices[q.answer]) : esc(q.answer) + esc(q.unit || "");
       html += '<div class="verdict ' + (a.correct ? "ok" : "ng") + '" tabindex="-1">' +
-        '<p class="v-title">' + (a.correct ? '<span class="v-icon" aria-hidden="true">◎</span>正解！' : '<span class="v-icon" aria-hidden="true">△</span>おしい！ここで確かめよう') + "</p>" +
+        '<p class="v-title">' + (a.correct ? '<span class="v-icon" aria-hidden="true">◎</span>正解！ この調子！' : '<span class="v-icon" aria-hidden="true">△</span>ここが覚えどころ！ 答え合わせをしてみよう') + "</p>" +
         (a.correct ? "" : '<p class="v-answer">正解：' + correctText + "</p>") +
         (a.correct && q.gotIt ? '<p class="v-msg">' + inline(q.gotIt) + "</p>" : "") +
         (!a.correct && q.nextHint ? '<p class="v-msg"><b>次はここを見てみよう：</b>' + inline(q.nextHint) + "</p>" : "") +
         "</div>" +
         talk([{ who: "matchan", face: a.correct ? "joy" : "good", text: q.short || q.explanation }]
           .concat(q.wrapUp ? [{ who: "kawauso", face: a.correct ? "laugh" : "think", text: q.wrapUp }] : []));
-      html += '<details class="more"><summary>詳しく見る（解説' + (q.type === "choice" ? "と各選択肢" : "") + "）</summary>" +
+      html += '<details class="more answer-check"' + (a.correct ? "" : " open") + "><summary>答え合わせ（解説" + (q.type === "choice" ? "と各選択肢" : "") + "）</summary>" +
         "<p>" + inline(q.explanation) + "</p>";
       if (q.type === "choice" && q.choiceNotes) {
         html += '<ul class="notes">' + q.choiceNotes.map(function (n, i) {
@@ -498,7 +511,7 @@
         html += '<p class="small muted">正解として扱う表記：' + q.accept.map(esc).join("／") + "</p>";
       }
       html += "</details>";
-      html += '<p class="small muted">教科書で確かめる</p><div class="backlinks">' + q.sectionIds.map(function (sid) {
+      html += '<p class="small muted">秘伝の書で確かめる</p><div class="backlinks">' + q.sectionIds.map(function (sid) {
         var s = DB.sections[sid];
         return s ? '<a class="btn ghost" href="#/book/' + esc(sid) + '">' + esc(s.title) + "</a>" : "";
       }).join("") + "</div>";
@@ -564,7 +577,7 @@
     var wrong = session.ids.filter(function (id) { return !(session.answers[id] && session.answers[id].correct); });
     var msg = sc === total
       ? [{ who: "kawauso", face: "laugh", text: "全問正解！見るポイントが、自分の言葉で説明できるようになってきた。" }, { who: "matchan", face: "joy", text: "その調子。次は別のジャンルでも、同じ順番で見てみよう。" }]
-      : [{ who: "kawauso", face: "fire", text: "間違えたところが、次に伸びるところだね。もう一回やってみる！" }, { who: "matchan", text: "下のリストから教科書に戻って、理由を確かめてから解き直してみよう。" }];
+      : [{ who: "kawauso", face: "fire", text: "まちがえたところが、覚えどころだね。もう一回チャレンジ！" }, { who: "matchan", text: "下のリストから秘伝の書を見返して、理由を確かめてから解き直してみよう。" }];
     var html = "<h1>結果</h1>" +
       '<div class="card result-score">' + (sc === total ? pose("kawauso", "joy", "result-pose") : pose("kawauso", "fire", "result-pose")) +
       '<span class="muted">' + esc(session.label) + "</span><b>" + sc + " / " + total + "</b>" +
@@ -573,15 +586,15 @@
         var q = DB.qById[id], a = session.answers[id];
         var s = DB.sections[q.sectionIds[0]];
         var ok = a && a.correct;
-        return '<li class="' + (ok ? "ok" : "ng") + '"><span class="rmark">' + (ok ? "正解" : "復習") + "</span>" +
+        return '<li class="' + (ok ? "ok" : "ng") + '"><span class="rmark">' + (ok ? "正解" : "おさらい") + "</span>" +
           "<span>第" + (i + 1) + "問　" + esc(q.question.length > 40 ? q.question.slice(0, 40) + "…" : q.question) +
-          (s ? '<br><a href="#/book/' + esc(s.id) + '">教科書：' + esc(s.title) + "</a>" : "") + "</span></li>";
+          (s ? '<br><a href="#/book/' + esc(s.id) + '">秘伝の書：' + esc(s.title) + "</a>" : "") + "</span></li>";
       }).join("") + "</ul>";
     if (wrong.length && wrong.length < total) {
-      html += '<button class="btn accent big" id="retry-wrong">間違えた問題だけ解く（' + wrong.length + "問）</button>";
+      html += '<button class="btn accent big" id="retry-wrong">もう一回チャレンジ！<small>まちがえた問題だけ（' + wrong.length + "問）</small></button>";
     }
-    html += '<button class="btn primary" id="retry-all">もう一度ぜんぶ解く（' + total + "問）</button>";
-    html += '<div class="btn-row"><a class="btn ghost" href="#/quiz">ジャンルを選ぶ</a><a class="btn ghost" href="#/book">秘伝の書を読む</a></div>';
+    html += '<button class="btn primary" id="retry-all">' + (sc === total ? "もう一度ぜんぶ解く" : "もう一回チャレンジ！") + "<small>ぜんぶ（" + total + "問）</small></button>";
+    html += '<div class="btn-row"><a class="btn ghost" href="#/quiz">ドリルの一覧へ</a><a class="btn ghost" href="#/book">秘伝の書を読む</a></div>';
     return html;
   }
   function bindResult() {
@@ -592,7 +605,7 @@
     });
     if (wr) wr.addEventListener("click", function () {
       var ids = session.ids.filter(function (id) { return !(session.answers[id] && session.answers[id].correct); });
-      startSession({ ids: ids.join(","), label: session.label + "（間違えた問題）" });
+      startSession({ ids: ids.join(","), label: session.label + "（まちがえた問題）" });
       render(); window.scrollTo(0, 0);
     });
   }
