@@ -1,0 +1,1212 @@
+{
+  "_note": "商品そのものを見て学ぶための、AI生成の練習用画像の一覧。status: planned=未作成（教科書では表示しない。問題では内容説明つきの仮枠を出す） / ready=作成・確認済み。priority: A=判断に直結（先に作る） / B=比べて覚える / C=あると分かりやすい。prompt は日本語の生成指示（共通の条件は docs/商品画像の依頼リスト.md の冒頭）。画像を作ったら img/practice/ に置き、mustShow / mustNot と使う問題の条件を目で確認してから status を ready にする。quizAlt は問題の画面で使う説明（答えになる言葉を入れない）。",
+  "images": [
+    {
+      "id": "IMG-KISO-001",
+      "file": "img/practice/kiso-001.jpg",
+      "status": "ready",
+      "theme": "kiso",
+      "priority": "B",
+      "alt": "コートの内側、左脇の縫い目に白い布のタグが縫い付けられている様子。タグの文字は読めない。",
+      "caption": "見本：品質表示のタグがある場所（コートの内側の脇）",
+      "usedIn": [
+        "kiso-material-tag"
+      ],
+      "prompt": "ロングコートの前を開けて、内側の左脇の縫い目に縫い付けられた白い布の品質表示タグを写す。タグの文字はぼかして読めないようにする。",
+      "mustShow": [
+        "内側の脇の縫い目に付いた白いタグ",
+        "タグの位置が分かる"
+      ],
+      "mustNot": [
+        "読める文字",
+        "ブランドのネーム"
+      ]
+    },
+    {
+      "id": "IMG-KISO-002",
+      "file": "img/practice/kiso-002.jpg",
+      "status": "ready",
+      "theme": "kiso",
+      "priority": "A",
+      "alt": "黒い合成皮革の表面がうろこのようにはがれ、下の布地が見えている様子のアップ。",
+      "caption": "見本：合成皮革の傷み（表面のはがれ・ひび割れ）",
+      "usedIn": [
+        "kiso-material-tag"
+      ],
+      "prompt": "黒い合成皮革の表面のアップ。表面の膜がうろこのようにはがれ、下の白っぽい布地が見えている。細かいひび割れもある。",
+      "mustShow": [
+        "表面の膜がはがれて、下の布地が見える",
+        "細かいひび割れ"
+      ],
+      "mustNot": [
+        "本革の自然なシワに見えるもの"
+      ]
+    },
+    {
+      "id": "IMG-BAG-001",
+      "file": "img/practice/bag-001.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "alt": "ロゴのない黒いレザーのトートバッグを正面から写した練習用画像。上が広く下がせまい「逆台形」の形で、持ち手が2本。A4のファイルが入る大きさ。",
+      "caption": "見本：上が広がった形（逆台形）のトートバッグ",
+      "usedIn": [
+        "bag-color-shape",
+        "bag-case",
+        "Q-BAG-006"
+      ],
+      "prompt": "黒いなめらかな革のトートバッグを真正面から。口が広く、底に向かってはっきりせまくなる逆台形の形。持ち手は2本。A4の書類が入る大きさ。傷や汚れはなし。",
+      "mustShow": [
+        "上が広く下がせまい形がはっきり分かる",
+        "持ち手が2本",
+        "黒い革らしい質感"
+      ],
+      "mustNot": [
+        "ブランドロゴ・ブランド名・刻印",
+        "文字の入ったタグ",
+        "傷や汚れ（形を学ぶ画像のため）"
+      ],
+      "quizAlt": "ロゴのない黒いレザーのトートバッグを正面から写した練習用画像。上の口が広く、底に向かってせまくなっている。持ち手が2本。",
+      "priority": "A"
+    },
+    {
+      "id": "IMG-BAG-002",
+      "file": "img/practice/bag-002.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "alt": "黒いレザーバッグの底の角（四隅）を近くから写した練習用画像。角の革が小さく擦れて、色が少し薄くなっている。",
+      "caption": "見本：四隅の小さなスレ",
+      "usedIn": [
+        "bag-condition"
+      ],
+      "prompt": "黒い革のバッグの底の角を近くから写す。角の黒い革が少しこすれて色が薄くなっている。破れや穴はなし。ほかの部分はきれい。",
+      "mustShow": [
+        "底の角だけに小さな擦れ",
+        "ほかの部分はきれい"
+      ],
+      "mustNot": [
+        "破れ・穴（擦れより重いダメージに見える）",
+        "ロゴ・文字"
+      ],
+      "priority": "A"
+    },
+    {
+      "id": "IMG-BAG-003",
+      "file": "img/practice/bag-003.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "A",
+      "alt": "左は本革の表面で、シワや毛穴が場所ごとに不規則。右は合成皮革の表面で、同じ細かい模様が規則正しく並んでいる。",
+      "caption": "比べて見よう：本革（左）と合成皮革（右）の表面",
+      "usedIn": [
+        "bag-material"
+      ],
+      "prompt": "黒い革の表面のアップを左右に並べた比較写真。左：本革。シワや毛穴が場所ごとに少しずつ違う。右：合成皮革。同じ細かい型押し模様が規則正しく並ぶ。文字は入れない。",
+      "mustShow": [
+        "左右に並べて比べられる",
+        "左は不規則なシワと毛穴",
+        "右は同じ模様のくり返し"
+      ],
+      "mustNot": [
+        "文字・ラベル"
+      ]
+    },
+    {
+      "id": "IMG-BAG-004",
+      "file": "img/practice/bag-004.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "B",
+      "alt": "左は本革の切り口で、繊維がつまった断面。右は合成皮革の切り口で、表面の膜の下に布の層が見える。",
+      "caption": "比べて見よう：切り口（コバ）　本革（左）と合成皮革（右）",
+      "usedIn": [
+        "bag-material"
+      ],
+      "prompt": "バッグの持ち手の切り口（断面）のアップを左右に並べる。左：本革。繊維がぎっしりつまった茶色い断面。右：合成皮革。表面の黒い膜の下に、白い布の層が見える。",
+      "mustShow": [
+        "切り口の断面がはっきり見える",
+        "右は布の層が見える"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-BAG-005",
+      "file": "img/practice/bag-005.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "C",
+      "alt": "バッグの内ポケットの縁に、小さな布のタグが縫い付けられている様子。タグの文字は読めない。",
+      "caption": "見本：内側の素材の表示がある場所",
+      "usedIn": [
+        "bag-material"
+      ],
+      "prompt": "黒い革のトートバッグの内側を上からのぞいた写真。内ポケットの縁に小さな布のタグが縫い付けられている。タグの文字はぼかして読めないようにする。",
+      "mustShow": [
+        "内ポケットの縁の小さなタグ"
+      ],
+      "mustNot": [
+        "読める文字",
+        "ブランドのロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-006",
+      "file": "img/practice/bag-006.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "B",
+      "alt": "表面が鏡のようにツヤツヤ光る黒いハンドバッグ。見た目だけでは本革か合成皮革かは分からない。",
+      "caption": "見本：エナメル（表面がツヤツヤのバッグ）",
+      "usedIn": [
+        "bag-material"
+      ],
+      "prompt": "表面が鏡のようにツヤツヤ光る黒いエナメルのハンドバッグを正面から。",
+      "mustShow": [
+        "強い光沢"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-BAG-007",
+      "file": "img/practice/bag-007.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "A",
+      "alt": "黒い革のバッグに、取り外しできる細い肩ひもが金具で付いている。ひもの両端に留め具が見える。",
+      "caption": "見本：2WAYバッグ（肩ひもを付けた状態）",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "黒い革のハンドバッグに、取り外しできる細い革の肩ひもが付いている。ひもの両端の金具（ナスカン）がはっきり見える。",
+      "mustShow": [
+        "取り外しできる肩ひも",
+        "ひもの両端の留め具"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-008",
+      "file": "img/practice/bag-008.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "B",
+      "alt": "黒いビジネスバッグの背面に、リュックとして背負うための2本のベルトが付いている。",
+      "caption": "見本：3WAYバッグ（リュックにもなる）",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "黒いナイロンと革のビジネスバッグを背面から。リュックとして背負う2本のベルトが付き、上に手持ちの持ち手もある。",
+      "mustShow": [
+        "背面のリュック用ベルト2本",
+        "手持ちの持ち手"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "人"
+      ]
+    },
+    {
+      "id": "IMG-BAG-009",
+      "file": "img/practice/bag-009.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "C",
+      "alt": "バッグを裏返し、底の四隅に丸い金属の鋲が付いている様子。",
+      "caption": "見本：底鋲（底の4つの金具）",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "黒い革のトートバッグを裏返して底を写す。底の四隅に丸い金属の鋲（底鋲）が付いている。",
+      "mustShow": [
+        "底の四隅の丸い鋲"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-010",
+      "file": "img/practice/bag-010.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "B",
+      "alt": "口が大きく開く、四角い書類かばん。上部に金具の口枠と、中央の持ち手。",
+      "caption": "見本：特徴的な形　ダレスバッグ",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "茶色い革のダレスバッグを正面から。四角い形で、上部に口枠の金具、中央に持ち手1本。",
+      "mustShow": [
+        "四角い形",
+        "上部の口枠の金具"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-011",
+      "file": "img/practice/bag-011.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "C",
+      "alt": "金具の口をパチンと閉じる、がま口のハンドバッグ。口の上に玉の留め具。",
+      "caption": "見本：特徴的な形　がま口",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "黒い革のがま口ハンドバッグを正面から。口の金具の上に、2つの玉の留め具が見える。",
+      "mustShow": [
+        "口の金具と玉の留め具"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-012",
+      "file": "img/practice/bag-012.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "C",
+      "alt": "口をひもでしぼって閉じる、巾着型の革のバッグ。",
+      "caption": "見本：特徴的な形　巾着バッグ",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "黒い革の巾着バッグを正面から。口を革ひもでしぼって閉じている。",
+      "mustShow": [
+        "口をしぼるひも"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-013",
+      "file": "img/practice/bag-013.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "C",
+      "alt": "ふたをかぶせて閉じる、フラップ式のショルダーバッグ。",
+      "caption": "見本：特徴的な形　フラップ式",
+      "usedIn": [
+        "bag-color-shape"
+      ],
+      "prompt": "黒い革のフラップ式ショルダーバッグを正面から。前面に大きなふたがかぶさっている。",
+      "mustShow": [
+        "前にかぶさるふた"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "ふたの金具の刻印"
+      ]
+    },
+    {
+      "id": "IMG-BAG-014",
+      "file": "img/practice/bag-014.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "A",
+      "alt": "革の持ち手の表面に細かいひび割れがあり、切り口の塗装がはがれている。付け根の縫い目も少しほつれている。",
+      "caption": "見本：持ち手の傷み（ひび割れ・切り口のはがれ・付け根）",
+      "usedIn": [
+        "bag-condition"
+      ],
+      "prompt": "黒い革バッグの持ち手のアップ。表面に細かいひび割れ、切り口（コバ）の黒い塗装がはがれている。付け根の縫い目が少しほつれている。",
+      "mustShow": [
+        "持ち手のひび割れ",
+        "切り口のはがれ",
+        "付け根のほつれ"
+      ],
+      "mustNot": [
+        "持ち手が切れている（重すぎる傷み）"
+      ]
+    },
+    {
+      "id": "IMG-BAG-015",
+      "file": "img/practice/bag-015.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "A",
+      "alt": "バッグの内側の生地の表面がテカテカしてベタつき、ところどころ白い粉のようなものが出ている。",
+      "caption": "見本：内側のベタつき・粉のようなもの",
+      "usedIn": [
+        "bag-condition"
+      ],
+      "prompt": "黒いバッグの内側の裏地のアップ。表面がテカテカしてベタついた感じで、ところどころ白い粉のようなものが出ている。",
+      "mustShow": [
+        "内側の生地のテカリ・ベタつき感",
+        "白い粉のようなもの"
+      ],
+      "mustNot": [
+        "カビの緑色（別の傷みに見える）"
+      ]
+    },
+    {
+      "id": "IMG-BAG-016",
+      "file": "img/practice/bag-016.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "B",
+      "alt": "金色の金具のメッキがはがれて、下の地金の色が見えている。",
+      "caption": "見本：金具の傷み（メッキのはがれ）",
+      "usedIn": [
+        "bag-condition"
+      ],
+      "prompt": "バッグの金色の金具（Dカン）のアップ。メッキがはがれて、下の灰色の地金が見えている。刻印はなし。",
+      "mustShow": [
+        "金具のメッキのはがれ"
+      ],
+      "mustNot": [
+        "刻印・ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-017",
+      "file": "img/practice/bag-017.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "C",
+      "alt": "トートバッグが横につぶれて、側面にへこみと深い折れジワがある。",
+      "caption": "見本：型くずれ（形がつぶれている）",
+      "usedIn": [
+        "bag-condition"
+      ],
+      "prompt": "黒い革のトートバッグを正面から。形がつぶれて傾き、側面にへこみと深い折れジワがある。",
+      "mustShow": [
+        "つぶれた形",
+        "深い折れジワ"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-BAG-018",
+      "file": "img/practice/bag-018.jpg",
+      "status": "ready",
+      "theme": "bag",
+      "priority": "A",
+      "alt": "肩ひもを付ける金具は付いているが、肩ひも自体はない状態のバッグ。",
+      "caption": "見本：2WAYなのに肩ひもがない（欠品）",
+      "usedIn": [
+        "bag-research"
+      ],
+      "prompt": "黒い革のハンドバッグを正面から。両脇に肩ひもを付けるための金具（Dカン）が付いているが、肩ひもは付いていない。ひもはどこにも写さない。",
+      "mustShow": [
+        "肩ひも用の金具（Dカン）",
+        "肩ひもがない"
+      ],
+      "mustNot": [
+        "肩ひもが写り込む"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-001",
+      "file": "img/practice/pumps-001.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "alt": "ロゴのない黒いパンプスを真横から写した練習用画像。つま先がとがった形で、足首に回すストラップが付いている。ヒールは中くらいの高さ。",
+      "caption": "見本：つま先の形とストラップを見る",
+      "usedIn": [
+        "pumps-design",
+        "Q-PUMPS-006"
+      ],
+      "prompt": "黒いなめらかな革の女性用パンプスを片方だけ、真横から。つま先がはっきりとがった形。足首に回す細いベルトと小さな無地の金具。ヒールは約7cm。傷はなし。",
+      "mustShow": [
+        "つま先が明らかにとがっている",
+        "足首に回すストラップ",
+        "黒"
+      ],
+      "mustNot": [
+        "丸いつま先に見える角度",
+        "中敷きのロゴや文字",
+        "傷"
+      ],
+      "priority": "A"
+    },
+    {
+      "id": "IMG-PUMPS-002",
+      "file": "img/practice/pumps-002.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "alt": "パンプスのヒールの先（地面に当たる部分）を近くから写した練習用画像。先のゴムがすり減ってなくなり、中の金属の芯が少し見えている。",
+      "caption": "見本：ヒールの先がすり減って、中の芯が見えている",
+      "usedIn": [
+        "pumps-condition",
+        "pumps-case"
+      ],
+      "prompt": "黒いパンプスのヒールの先端（地面に当たる部分）を下から近くで写す。先のゴムがすり減ってなくなり、中心に金属の芯が見えている。ヒールは折れていない。",
+      "mustShow": [
+        "ヒールの先の金属の芯が見えている"
+      ],
+      "mustNot": [
+        "ヒール全体が折れている（別のダメージになる）"
+      ],
+      "priority": "A"
+    },
+    {
+      "id": "IMG-PUMPS-003",
+      "file": "img/practice/pumps-003.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "A",
+      "alt": "2足の黒いパンプスを上から並べた写真。左はつま先がとがり、右はつま先が丸い。",
+      "caption": "比べて見よう：つま先の形　ポインテッドトゥ（左）とラウンドトゥ（右）",
+      "usedIn": [
+        "pumps-design"
+      ],
+      "prompt": "黒い革のパンプス2足を上から並べる。左：つま先がとがったポインテッドトゥ。右：つま先が丸いラウンドトゥ。",
+      "mustShow": [
+        "左右でつま先の形がはっきり違う"
+      ],
+      "mustNot": [
+        "文字",
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-004",
+      "file": "img/practice/pumps-004.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "B",
+      "alt": "足の甲を横切るベルトが付いた黒いパンプスを斜め横から。",
+      "caption": "見本：甲ストラップ（足の甲を押さえるベルト）",
+      "usedIn": [
+        "pumps-design"
+      ],
+      "prompt": "黒い革のパンプスを斜め横から。足の甲を横切るベルト（甲ストラップ）が付いている。",
+      "mustShow": [
+        "足の甲を横切るベルト"
+      ],
+      "mustNot": [
+        "足首のベルト（アンクルストラップに見える）"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-005",
+      "file": "img/practice/pumps-005.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "C",
+      "alt": "つま先にリボンの飾りが付いた黒いパンプス。",
+      "caption": "見本：飾り付きのパンプス（リボン）",
+      "usedIn": [
+        "pumps-design"
+      ],
+      "prompt": "黒い革のパンプスを斜め前から。つま先に小さなリボンの飾りが付いている。",
+      "mustShow": [
+        "つま先のリボン"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-006",
+      "file": "img/practice/pumps-006.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "B",
+      "alt": "左は表面がツヤツヤのエナメルのパンプス、右は表面が起毛したスエードのパンプス。",
+      "caption": "見本：エナメル（左）とスエード（右）",
+      "usedIn": [
+        "pumps-material"
+      ],
+      "prompt": "黒いパンプス2足を横から並べる。左：表面がツヤツヤのエナメル。右：表面が細かく起毛したスエード。",
+      "mustShow": [
+        "左は強い光沢",
+        "右は毛羽立った起毛"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-007",
+      "file": "img/practice/pumps-007.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "A",
+      "alt": "黒いパンプスのつま先の革がすりむけて、めくれ、下の色が見えている。",
+      "caption": "見本：つま先のすり傷・革のめくれ",
+      "usedIn": [
+        "pumps-condition"
+      ],
+      "prompt": "黒い革のパンプスのつま先のアップ。革がすりむけてめくれ、下の茶色っぽい層が見えている。",
+      "mustShow": [
+        "つま先のすり傷",
+        "革のめくれ"
+      ],
+      "mustNot": [
+        "靴全体が汚れている"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-008",
+      "file": "img/practice/pumps-008.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "A",
+      "alt": "ヒールに巻いてある黒い革が大きくえぐれて、下の白い芯材が見えている。",
+      "caption": "見本：ヒールに巻いた革のえぐれ",
+      "usedIn": [
+        "pumps-condition"
+      ],
+      "prompt": "黒いパンプスのヒール部分のアップ。ヒールに巻かれた黒い革が大きくえぐれ、下の白い芯材が見えている。",
+      "mustShow": [
+        "ヒールの革のえぐれ",
+        "下の白い芯材"
+      ],
+      "mustNot": [
+        "ヒールの先の芯（別の傷み）"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-009",
+      "file": "img/practice/pumps-009.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "B",
+      "alt": "パンプスのかかとの内側の内張りがすり切れて、穴が開いている。",
+      "caption": "見本：かかと内側のすり切れ",
+      "usedIn": [
+        "pumps-condition"
+      ],
+      "prompt": "黒いパンプスのかかと部分の内側をのぞいたアップ。内張りの生地がすり切れて、穴が開いている。",
+      "mustShow": [
+        "かかと内側の内張りのすり切れ"
+      ],
+      "mustNot": [
+        "中敷きの文字"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-010",
+      "file": "img/practice/pumps-010.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "B",
+      "alt": "靴底の素材が劣化して、細かいひび割れが走り、端がボロボロくずれている。",
+      "caption": "見本：靴底のひび割れ・くずれ",
+      "usedIn": [
+        "pumps-condition"
+      ],
+      "prompt": "黒いパンプスを裏返して靴底を写す。靴底の素材が劣化して細かいひび割れが走り、端がボロボロにくずれている。",
+      "mustShow": [
+        "靴底のひび割れ",
+        "端のくずれ"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-011",
+      "file": "img/practice/pumps-011.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "B",
+      "alt": "黒い革のショートブーツを横から。足首の側面に伸び縮みするゴムの布が入っている。",
+      "caption": "見本：サイドゴアブーツ（足首の両側にゴム）",
+      "usedIn": [
+        "pumps-boots"
+      ],
+      "prompt": "黒い革のサイドゴアブーツを真横から。足首の側面にV字の伸び縮みするゴム布が入っている。",
+      "mustShow": [
+        "足首側面のゴム部分"
+      ],
+      "mustNot": [
+        "ファスナー（サイドジップに見える）"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-012",
+      "file": "img/practice/pumps-012.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "C",
+      "alt": "黒い革のショートブーツの内側の側面に、縦にファスナーが付いている。",
+      "caption": "見本：サイドジップブーツ（横にファスナー）",
+      "usedIn": [
+        "pumps-boots"
+      ],
+      "prompt": "黒い革のショートブーツを内側の側面から。縦にファスナーが付いている。",
+      "mustShow": [
+        "側面の縦のファスナー"
+      ],
+      "mustNot": [
+        "ゴム布"
+      ]
+    },
+    {
+      "id": "IMG-PUMPS-013",
+      "file": "img/practice/pumps-013.jpg",
+      "status": "ready",
+      "theme": "pumps",
+      "priority": "C",
+      "alt": "黒いロングブーツの筒の部分に、深いシワと折れ跡が入っている。",
+      "caption": "見本：ロングブーツの筒の深いシワ・折れ跡",
+      "usedIn": [
+        "pumps-boots"
+      ],
+      "prompt": "黒い革のロングブーツを横から。足首から上の筒の部分に、深いシワと折れた跡がくっきり入っている。",
+      "mustShow": [
+        "筒の深い折れ跡"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-DOWN-001",
+      "file": "img/practice/down-001.jpg",
+      "status": "ready",
+      "theme": "down",
+      "alt": "ハンガーに掛かった黒い女性用のロングダウンコートの練習用画像。ひざ下まである長い丈で、ウエストにベルト。裾に向かって少し広がる形。フードの縁に毛足の長いファーが付いている（本物かどうかは画像では分からない）。",
+      "caption": "見本：レディースのロング丈ダウン（ベルト付き・ファー付き）",
+      "usedIn": [
+        "down-length",
+        "down-case",
+        "Q-DOWN-006"
+      ],
+      "prompt": "ハンガーに掛かった黒い女性用のロングダウンコート。ひざ下まである長い丈、ウエストにベルト、すそに向かって少し広がる形、横向きのキルト。フードの縁に毛足の長いファー。タグは写さない。",
+      "mustShow": [
+        "ひざ下までの長い丈",
+        "ウエストのベルト",
+        "フードのファー"
+      ],
+      "mustNot": [
+        "ロゴ・ブランド名",
+        "読める文字のタグ（ダウン率などは画面側で示す）"
+      ],
+      "priority": "A"
+    },
+    {
+      "id": "IMG-DOWN-002",
+      "file": "img/practice/down-002.jpg",
+      "status": "ready",
+      "theme": "down",
+      "priority": "B",
+      "alt": "左は腰までの短い丈の黒いダウンジャケット、右は太ももの上くらいの中途半端な丈のダウン。",
+      "caption": "比べて見よう：狙う丈　短い丈（左）と中途半端な丈（右）",
+      "usedIn": [
+        "down-length"
+      ],
+      "prompt": "ハンガーに掛かった黒いダウンジャケット2着を並べる。左：腰までの短い丈。右：太ももの上くらいの中途半端な丈。",
+      "mustShow": [
+        "左右で丈の違いがはっきり分かる"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-DOWN-003",
+      "file": "img/practice/down-003.jpg",
+      "status": "ready",
+      "theme": "down",
+      "priority": "A",
+      "alt": "毛をかき分けた根元のアップ。左は根元が薄い皮（革）になっている。右は根元に布の織り目が見える。",
+      "caption": "比べて見よう：ファーの根元　本物（左）と人工（右）",
+      "usedIn": [
+        "down-fur"
+      ],
+      "prompt": "ファーの毛を指でかき分けて根元を見せたアップを左右に並べる（指は写さない）。左：本物の毛皮。根元が薄い皮になっている。右：人工のファー。根元に布の織り目が見える。",
+      "mustShow": [
+        "左は皮の根元",
+        "右は布の織り目"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-DOWN-004",
+      "file": "img/practice/down-004.jpg",
+      "status": "ready",
+      "theme": "down",
+      "priority": "A",
+      "alt": "黒いダウンの表地から、白い羽が何本か飛び出している。",
+      "caption": "見本：羽の飛び出し・小さな穴",
+      "usedIn": [
+        "down-condition"
+      ],
+      "prompt": "黒いナイロンのダウンジャケットの表面のアップ。縫い目や小さな穴から白い羽が何本か飛び出している。",
+      "mustShow": [
+        "表地から飛び出した白い羽"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-DOWN-005",
+      "file": "img/practice/down-005.jpg",
+      "status": "ready",
+      "theme": "down",
+      "priority": "A",
+      "alt": "明るい色のダウンの袖口が、皮脂で黒ずんでいる。",
+      "caption": "見本：えり・袖口の黒ずみ",
+      "usedIn": [
+        "down-condition"
+      ],
+      "prompt": "ベージュのダウンジャケットの袖口のアップ。袖口の縁が皮脂で黒ずんでいる。",
+      "mustShow": [
+        "袖口の黒ずみ"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-DOWN-006",
+      "file": "img/practice/down-006.jpg",
+      "status": "ready",
+      "theme": "down",
+      "priority": "B",
+      "alt": "縫い目のないダウンの区切り部分がはがれて、羽が下にたまってふくらみが偏っている。",
+      "caption": "見本：くっつけた部分のはがれと、羽の偏り",
+      "usedIn": [
+        "down-condition"
+      ],
+      "prompt": "縫い目のない（圧着の）黒いダウンジャケットのアップ。区切りの圧着部分がはがれ、羽が下にたまってふくらみが偏っている。",
+      "mustShow": [
+        "区切りのはがれ",
+        "下にたまった羽"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-COAT-001",
+      "file": "img/practice/coat-001.jpg",
+      "status": "ready",
+      "theme": "coat",
+      "alt": "トルソーに着せたキャメル色のロングコートの練習用画像。前を重ねて着る形で、腰の両脇にベルトを通す輪（ベルト通し）があるが、ベルトは付いていない。",
+      "caption": "見本：ベルト通しがあるのに、ベルトがないコート",
+      "usedIn": [
+        "coat-silhouette",
+        "coat-case",
+        "Q-COAT-006"
+      ],
+      "prompt": "トルソーに着せたキャメル色の女性用ロングコート。前を重ねて着る形。腰の両脇に布のベルト通しがはっきり見えるが、ベルトは付いていない。ベルトはどこにも写さない。",
+      "mustShow": [
+        "腰のベルト通しがはっきり見える",
+        "ベルトが付いていない"
+      ],
+      "mustNot": [
+        "ベルトが写り込む",
+        "ロゴ・文字"
+      ],
+      "quizAlt": "トルソーに着せたキャメル色のロングコートの練習用画像。前を重ねて着る形。腰の両脇に布の輪（ベルト通し）があり、腰まわりにはほかに何も付いていない。",
+      "priority": "A"
+    },
+    {
+      "id": "IMG-COAT-002",
+      "file": "img/practice/coat-002.jpg",
+      "status": "ready",
+      "theme": "coat",
+      "priority": "A",
+      "alt": "左はすそに向かって広がる黒いロングコート、右は腰回りがしぼられた黒いロングコート。",
+      "caption": "比べて見よう：コートの形　Aライン（左）とウエストシェイプ（右）",
+      "usedIn": [
+        "coat-order"
+      ],
+      "prompt": "トルソーに着せた黒いロングコート2着を並べる。左：すそに向かって広がるAライン。右：腰回りがしぼられたウエストシェイプ。",
+      "mustShow": [
+        "左はすそが広がる",
+        "右は腰がしぼられる"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "人"
+      ]
+    },
+    {
+      "id": "IMG-COAT-003",
+      "file": "img/practice/coat-003.jpg",
+      "status": "ready",
+      "theme": "coat",
+      "priority": "B",
+      "alt": "同じ形のコートで、ウエストにベルトがきちんと結ばれている。",
+      "caption": "見本：ベルト付きのコート（ベルトがそろっている）",
+      "usedIn": [
+        "coat-silhouette"
+      ],
+      "prompt": "トルソーに着せたキャメル色の女性用ロングコート。ウエストに共布のベルトが結ばれている。",
+      "mustShow": [
+        "ウエストのベルト"
+      ],
+      "mustNot": [
+        "ロゴ"
+      ]
+    },
+    {
+      "id": "IMG-COAT-004",
+      "file": "img/practice/coat-004.jpg",
+      "status": "ready",
+      "theme": "coat",
+      "priority": "A",
+      "alt": "ウールのコートの生地を光にすかすと、小さな穴がいくつか見える。",
+      "caption": "見本：虫食いの小さな穴",
+      "usedIn": [
+        "coat-condition"
+      ],
+      "prompt": "紺色のウールのコートの生地を窓の光にすかしたアップ。小さな虫食いの穴がいくつか光って見える。",
+      "mustShow": [
+        "光にすけて見える小さな穴"
+      ],
+      "mustNot": [
+        "大きな破れ"
+      ]
+    },
+    {
+      "id": "IMG-COAT-005",
+      "file": "img/practice/coat-005.jpg",
+      "status": "ready",
+      "theme": "coat",
+      "priority": "B",
+      "alt": "ウールのコートの脇の生地に、細かい毛玉がたくさんできている。",
+      "caption": "見本：脇や腰回りの毛玉",
+      "usedIn": [
+        "coat-condition"
+      ],
+      "prompt": "グレーのウールのコートの脇の生地のアップ。細かい毛玉がたくさんできている。",
+      "mustShow": [
+        "細かい毛玉"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-COAT-006",
+      "file": "img/practice/coat-006.jpg",
+      "status": "ready",
+      "theme": "coat",
+      "priority": "C",
+      "alt": "ウールのコートの袖口の縁がすれて、生地が薄くなっている。",
+      "caption": "見本：袖口のすれ",
+      "usedIn": [
+        "coat-condition"
+      ],
+      "prompt": "黒いウールのコートの袖口のアップ。縁がすれて、生地が薄く白っぽくなっている。",
+      "mustShow": [
+        "袖口のすれ"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-MIL-001",
+      "file": "img/practice/mil-001.jpg",
+      "status": "ready",
+      "theme": "mil",
+      "alt": "セージグリーンのフライトジャケットを前を開けて置いた練習用画像。腰までの短い丈で、首・袖口・裾がニットのリブ。内側の裏地はオレンジ色。左袖に小さなポケット。フードはない。",
+      "caption": "見本：短い丈・リブ・オレンジの裏地",
+      "usedIn": [
+        "mil-types",
+        "Q-MIL-006"
+      ],
+      "prompt": "セージグリーンのナイロンのフライトジャケット（MA-1型）を平らに置いて上から写す。前を開けて明るいオレンジの裏地が見える。腰までの短い丈。首・袖口・すそがニットのリブ。左袖に小さなファスナー付きポケット。フードはなし。ワッペンやタグはなし。",
+      "mustShow": [
+        "フードがない",
+        "首・袖・裾のリブ",
+        "オレンジの裏地",
+        "左袖のポケット"
+      ],
+      "mustNot": [
+        "ブランドタグ・ワッペン・文字",
+        "ファー付きフード"
+      ],
+      "priority": "A"
+    },
+    {
+      "id": "IMG-MIL-002",
+      "file": "img/practice/mil-002.jpg",
+      "status": "ready",
+      "theme": "mil",
+      "priority": "A",
+      "alt": "セージグリーンの短い丈のジャケットに、ファー付きのフード。すそはリブ。",
+      "caption": "見本：N-2B（短い丈・ファー付きフード・すそリブ）",
+      "usedIn": [
+        "mil-types"
+      ],
+      "prompt": "セージグリーンのナイロンのN-2B型ジャケットを正面から。腰までの短い丈、ファー付きのフード、すそはニットのリブ。",
+      "mustShow": [
+        "腰までの短い丈",
+        "ファー付きフード",
+        "すそのリブ"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "ワッペン",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-MIL-003",
+      "file": "img/practice/mil-003.jpg",
+      "status": "ready",
+      "theme": "mil",
+      "priority": "A",
+      "alt": "セージグリーンの長めのジャケットに、ファー付きのフード。すそはリブがなくストンと落ちる。",
+      "caption": "見本：N-3B（長め・ファー付きフード・すそリブなし）",
+      "usedIn": [
+        "mil-types"
+      ],
+      "prompt": "セージグリーンのナイロンのN-3B型ジャケットを正面から。おしりがかくれる長さ、ファー付きのフード、すそはリブがなくストンと落ちる。",
+      "mustShow": [
+        "おしりがかくれる長さ",
+        "ファー付きフード",
+        "すそにリブなし"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "ワッペン",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-MIL-004",
+      "file": "img/practice/mil-004.jpg",
+      "status": "ready",
+      "theme": "mil",
+      "priority": "A",
+      "alt": "N-2B型のフードの縁に、ファーを付けるボタンやファスナーはあるが、ファーがない。",
+      "caption": "見本：フードのファーがない（欠品）",
+      "usedIn": [
+        "mil-condition"
+      ],
+      "prompt": "セージグリーンのN-2B型ジャケットのフードのアップ。縁にファーを付けるためのスナップボタンがあるが、ファーは付いていない。",
+      "mustShow": [
+        "ファーがないフードの縁",
+        "取り付け用の部品"
+      ],
+      "mustNot": [
+        "ファーが写り込む"
+      ]
+    },
+    {
+      "id": "IMG-MIL-005",
+      "file": "img/practice/mil-005.jpg",
+      "status": "ready",
+      "theme": "mil",
+      "priority": "B",
+      "alt": "ミリタリージャケットの袖口のリブが伸びてゆるみ、小さな穴が開いている。",
+      "caption": "見本：リブの伸び・虫食い",
+      "usedIn": [
+        "mil-condition"
+      ],
+      "prompt": "セージグリーンのフライトジャケットの袖口のアップ。ニットのリブが伸びてゆるみ、小さな虫食いの穴が開いている。",
+      "mustShow": [
+        "伸びたリブ",
+        "小さな穴"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-MIL-006",
+      "file": "img/practice/mil-006.jpg",
+      "status": "ready",
+      "theme": "mil",
+      "priority": "C",
+      "alt": "左袖の小さなポケットの縫い目が、少しほつれている。",
+      "caption": "見本：袖のポケットの縫い目のほつれ",
+      "usedIn": [
+        "mil-condition"
+      ],
+      "prompt": "セージグリーンのフライトジャケットの左袖の小さなファスナー付きポケットのアップ。縫い目が少しほつれている。",
+      "mustShow": [
+        "袖ポケットの縫い目のほつれ"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-001",
+      "file": "img/practice/leather-001.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "alt": "ハンガーに掛かった黒いレザージャケットの練習用画像。前のファスナーが斜めに入っていて、襟が大きく開く形。ベルトが付いた短い丈。",
+      "caption": "見本：前のファスナーが斜めに入ったジャケット",
+      "usedIn": [
+        "leather-types",
+        "Q-LEATHER-006"
+      ],
+      "prompt": "ハンガーに掛かった黒い革のダブルライダースジャケット。前のファスナーが斜めに入っている。大きく開くえりにスナップ。腰までの短い丈、ウエストのベルト、袖口のファスナー。",
+      "mustShow": [
+        "前のファスナーが斜め",
+        "短い丈"
+      ],
+      "mustNot": [
+        "まっすぐなファスナー",
+        "ロゴ・文字"
+      ],
+      "priority": "A"
+    },
+    {
+      "id": "IMG-LEATHER-002",
+      "file": "img/practice/leather-002.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "A",
+      "alt": "茶色い革のジャケット。えりにもこもこのボア、袖とすそはリブ、前の腰にふた付きポケット。",
+      "caption": "見本：G-1（ボアのえり・リブ・ふた付きポケット）",
+      "usedIn": [
+        "leather-types"
+      ],
+      "prompt": "ハンガーに掛かった茶色い革のG-1型フライトジャケット。えりにもこもこのボア、袖とすそはニットのリブ、前の腰にふた付きのポケット。",
+      "mustShow": [
+        "えりのボア",
+        "袖・すそのリブ",
+        "ふた付きポケット"
+      ],
+      "mustNot": [
+        "ワッペン",
+        "ロゴ",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-003",
+      "file": "img/practice/leather-003.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "A",
+      "alt": "茶色い革のジャケット。えりはボアのないシャツのようなえり、袖とすそはリブ。",
+      "caption": "見本：A-2（ボアのないシャツのようなえり・リブ）",
+      "usedIn": [
+        "leather-types"
+      ],
+      "prompt": "ハンガーに掛かった茶色い革のA-2型フライトジャケット。えりはボアのない革のシャツえり、袖とすそはニットのリブ、前の腰にふた付きのポケット。",
+      "mustShow": [
+        "ボアのない革のえり",
+        "袖・すそのリブ",
+        "ふた付きポケット"
+      ],
+      "mustNot": [
+        "ボア",
+        "ワッペン",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-004",
+      "file": "img/practice/leather-004.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "A",
+      "alt": "左は立ったえりでまっすぐな前ファスナー、袖口はファスナー。右はシャツのようなえりでまっすぐな前ファスナー、袖口はボタン。",
+      "caption": "比べて見よう：シングルライダース（左）とスポーツジャケット（右）",
+      "usedIn": [
+        "leather-types"
+      ],
+      "prompt": "黒い革のジャケット2着を並べる。左：シングルライダース。立ったえり、まっすぐな前ファスナー、袖口にファスナー。右：スポーツジャケット。シャツのようなえり、まっすぐな前ファスナー、袖口にボタン。",
+      "mustShow": [
+        "左は立ったえり・袖口ファスナー",
+        "右はシャツえり・袖口ボタン"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-005",
+      "file": "img/practice/leather-005.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "B",
+      "alt": "腰から太ももまでの長さの茶色い革のコート。シャツのようなえり、ボタンで留める。",
+      "caption": "見本：カーコート（長めの丈・ボタン留め）",
+      "usedIn": [
+        "leather-types"
+      ],
+      "prompt": "ハンガーに掛かった茶色い革のカーコート。腰から太ももまでの長さ、シャツのようなえり、前をボタンで留める。",
+      "mustShow": [
+        "長めの丈",
+        "ボタン留め"
+      ],
+      "mustNot": [
+        "ロゴ",
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-006",
+      "file": "img/practice/leather-006.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "A",
+      "alt": "黒い革の表面が乾いてかたくなり、細かいひび割れが入っている。",
+      "caption": "見本：革のひび割れ（かたくなった革）",
+      "usedIn": [
+        "leather-condition"
+      ],
+      "prompt": "黒い革ジャケットのひじ部分のアップ。革が乾いてかたくなり、表面に細かいひび割れが入っている。",
+      "mustShow": [
+        "乾いた表面のひび割れ"
+      ],
+      "mustNot": [
+        "合成皮革のはがれ（別の傷み）"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-007",
+      "file": "img/practice/leather-007.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "A",
+      "alt": "茶色い革の表面に、白い粉のような点々が広がっている。",
+      "caption": "見本：カビ（白い粉や点々）",
+      "usedIn": [
+        "leather-condition"
+      ],
+      "prompt": "茶色い革ジャケットの表面のアップ。白い粉のようなカビの点々が広がっている。",
+      "mustShow": [
+        "白い点々"
+      ],
+      "mustNot": [
+        "文字"
+      ]
+    },
+    {
+      "id": "IMG-LEATHER-008",
+      "file": "img/practice/leather-008.jpg",
+      "status": "ready",
+      "theme": "leather",
+      "priority": "C",
+      "alt": "茶色い革のひじに、小さなすれとやわらかいシワがある。ひび割れはない。",
+      "caption": "見本：小さなすれとシワ（味と言われる範囲）",
+      "usedIn": [
+        "leather-condition"
+      ],
+      "prompt": "茶色い革ジャケットのひじのアップ。小さなすれと、やわらかく入ったシワがある。ひび割れや裂けはない。",
+      "mustShow": [
+        "小さなすれ",
+        "やわらかいシワ",
+        "ひび割れなし"
+      ],
+      "mustNot": [
+        "ひび割れ",
+        "カビ"
+      ]
+    }
+  ]
+}

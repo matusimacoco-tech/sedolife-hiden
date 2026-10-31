@@ -1,0 +1,47 @@
+{
+  "_note": "キャラクターの名前・役割・画像。画像は 2026-10-29 にまっちゃんから届いた資料（SRC-OWN-006〜008）から切り出したもの（絵は加工していない）。表情を増やすときは同じ資料から切り出すか、資料に合わせて描いたものだけを追加する。ready を false にすると仮の枠で表示する。",
+  "characters": {
+    "matchan": {
+      "name": "まっちゃん",
+      "role": "店で見るポイントを教えてくれる先輩。理由と考え方を説明する。ときどき見落とし、カワウソの気づきを素直に認める。",
+      "ready": true,
+      "images": {
+        "default": "img/chara/matchan_face_good.png",
+        "good": "img/chara/matchan_face_good.png",
+        "fire": "img/chara/matchan_face_fire.png",
+        "sad": "img/chara/matchan_face_sad.png",
+        "joy": "img/chara/matchan_face_joy.png"
+      },
+      "poses": {
+        "good": "img/chara/matchan_pose_good.png",
+        "fire": "img/chara/matchan_pose_fire.png",
+        "sad": "img/chara/matchan_pose_sad.png",
+        "joy": "img/chara/matchan_pose_joy.png"
+      }
+    },
+    "kawauso": {
+      "name": "カワウソ",
+      "role": "読者と同じ立場で学ぶ相棒。疑問・迷い・勘違いを代弁し、分かったことを自分の言葉で整理する。ときどき、まっちゃんの見落としに気づく。",
+      "ready": true,
+      "images": {
+        "default": "img/chara/kawauso_face_happy.png",
+        "happy": "img/chara/kawauso_face_happy.png",
+        "think": "img/chara/kawauso_face_think.png",
+        "fire": "img/chara/kawauso_face_fire.png",
+        "laugh": "img/chara/kawauso_face_laugh.png",
+        "sad": "img/chara/kawauso_face_sad.png",
+        "wink": "img/chara/kawauso_face_wink.png"
+      },
+      "poses": {
+        "main": "img/chara/kawauso_pose_main.png",
+        "joy": "img/chara/kawauso_pose_joy.png",
+        "fire": "img/chara/kawauso_pose_fire.png",
+        "sad": "img/chara/kawauso_pose_sad.png",
+        "good": "img/chara/kawauso_pose_good.png",
+        "research": "img/chara/kawauso_pose_research.png",
+        "shopping": "img/chara/kawauso_pose_shopping.png",
+        "run": "img/chara/kawauso_pose_run.png"
+      }
+    }
+  }
+}
