@@ -389,3 +389,91 @@ details.sources ul { font-size: .85rem; }
   .note-page .bubble { max-width: calc(100% - 52px); }
   .note-page .say { gap: 8px; }
 }
+
+/* ---------- ワークブック（書き込み式） ---------- */
+.work-card { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: var(--radius); background: linear-gradient(150deg, #1d2f45 0%, #24476b 100%); color: #fff; text-decoration: none; box-shadow: var(--shadow); }
+.work-card .work-catch { color: #7fdcf0; font: 800 .85rem var(--round); }
+.work-card b { font: 800 1.2rem var(--round); }
+.work-card small { opacity: .9; font-size: .85rem; line-height: 1.5; }
+.work-card .tile-meter { color: #b9f0c9; }
+.work-cover { margin: 8px 0 4px; padding: 18px 16px; border-radius: 24px; background: linear-gradient(150deg, #1d2f45 0%, #24476b 100%); color: #fff; }
+.work-cover h1 { margin: .1em 0; font-size: 1.6rem; }
+.work-cover .muted { color: #d6e2ee; }
+.work-catch { margin: 0; color: #7fdcf0; font: 800 .9rem var(--round); }
+.work-tagline { margin: .2em 0; font-weight: 700; }
+.work-privacy { margin: 12px 0; padding: 8px 12px; border-radius: 12px; background: var(--ok-soft); border: 2px solid #b9dcc8; font-size: .85rem; line-height: 1.6; }
+.work-list { list-style: none; padding: 0; display: grid; gap: 8px; }
+.work-list li { margin: 0; }
+.work-list a { position: relative; display: block; padding: 10px 14px; border-radius: 14px; background: var(--surface); border: 2px solid var(--line); color: var(--ink); text-decoration: none; line-height: 1.5; }
+.work-list b { display: block; font-family: var(--round); }
+.work-list small { display: block; color: var(--muted); font-size: .84rem; }
+.work-list .done-mark { position: absolute; top: 10px; right: 12px; }
+.work-no { display: inline-block; font: 800 .78rem var(--round); letter-spacing: .06em; color: #1e7f97; }
+.work-head { margin: 6px 0 0; padding: 14px 16px; border-radius: var(--radius); background: #1d2f45; color: #fff; }
+.work-head .work-no { color: #7fdcf0; }
+.work-head h1 { margin: 0; font-size: 1.35rem; }
+.work-lead { margin: 10px 0 0; color: var(--muted); font-weight: 700; }
+.work-item { margin: 16px 0 6px; }
+.work-q { margin: 0; font: 800 1rem/1.6 var(--round); }
+.work-hint { margin: 0 0 4px; font-size: .85rem; color: var(--muted); }
+.work-box, .work-input { width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: #fff; border: 2px solid #b9d3dc; border-radius: 12px; padding: 10px 12px; line-height: 1.7; }
+.work-box { min-height: 112px; resize: vertical; }
+.work-box:focus, .work-input:focus { outline: none; border-color: var(--accent); }
+.work-fields { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin: 4px 0 8px; }
+.work-fields label { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; font-size: .95rem; }
+.work-fields .work-input { width: 5.5em; padding: 6px 8px; text-align: right; }
+.work-fields .work-input.wide { width: 12em; text-align: left; }
+.work-note { margin: 16px 0 6px; padding: 10px 14px; border-radius: 14px; background: #e8f5f7; color: #16788e; font-weight: 700; }
+.work-saved { min-height: 1em; }
+.work-ok { color: var(--ok); font-weight: 800; }
+.work-cta { margin: 14px 0 4px; padding: 10px 14px; border-radius: 14px; background: var(--primary-soft); font-weight: 800; color: var(--primary-dark); }
+.work-sign { text-align: right; font-weight: 700; }
+.work-summary { white-space: pre-wrap; word-break: break-word; font: inherit; font-size: .92rem; line-height: 1.75; padding: 12px 14px; border-radius: 14px; background: var(--surface); border: 2px solid var(--line); }
+.btn.danger { color: var(--ng); }
+.brand, .topnav a { white-space: nowrap; }
+@media (max-width: 420px) {
+  .topbar { padding-left: 12px; padding-right: 12px; }
+  .topnav { gap: 4px; }
+  .topnav a { min-height: 40px; padding: 0 10px; font-size: .85rem; }
+  .brand { font-size: .92rem; }
+  .brand span { margin-left: .2em; }
+}
+/* 印刷用のワークブック（画面ではプレビューとして表示） */
+.print-book { margin: 8px 0 20px; }
+.pw-page { margin: 14px 0; padding: 18px 18px 14px; background: #fff; border: 1px solid #cfd8de; border-radius: 6px; box-shadow: var(--shadow); font-size: .95rem; line-height: 1.7; }
+.pw-page h2 { margin: .1em 0 .3em; font-size: 1.35rem; color: #1b2b3a; }
+.pw-page h3 { border-left-color: #1e7f97; font-size: 1.05rem; }
+.pw-page p { margin: .4em 0; }
+.pw-cover { border-top: 10px solid #1d2f45; }
+.pw-catch, .pw-no { margin: 0; font: 800 .82rem var(--round); letter-spacing: .06em; color: #1e7f97; }
+.pw-tagline { font-weight: 700; }
+.pw-name, .pw-date { font-weight: 700; }
+.pw-name span, .pw-date span { display: inline-block; min-width: 12em; border-bottom: 1px solid #556; height: 1.3em; vertical-align: bottom; }
+.pw-lead { color: #4a5a66; font-weight: 700; }
+.pw-item { margin: 12px 0 4px; break-inside: avoid; }
+.pw-q { font: 800 .98rem/1.6 var(--round) !important; margin: 0 !important; color: #1b2b3a; }
+.pw-hint { margin: 0 !important; font-size: .82rem; color: #5b6a74; }
+.pw-box { min-height: 7.2em; margin-top: 4px; padding: 8px 12px; border: 1.5px solid #9fbcc6; border-radius: 10px; white-space: pre-wrap; word-break: break-word; line-height: 1.8;
+  background-image: repeating-linear-gradient(transparent 0 1.8em, #e3ecef 1.8em calc(1.8em + 1px)); background-origin: content-box; }
+.pw-box.short { min-height: 2.6em; }
+.pw-fields { font-weight: 700; }
+.pw-blank { display: inline-block; min-width: 4em; padding: 0 .4em; margin: 0 .2em; border-bottom: 1.5px solid #556; text-align: center; }
+.pw-blank.wide { min-width: 10em; }
+.pw-note { margin-top: 12px !important; padding: 8px 12px; border-radius: 10px; background: #e8f5f7; color: #16788e; font-weight: 700; }
+.pw-cta { padding: 8px 12px; border-radius: 10px; background: #fde7e4; color: var(--primary-dark); font-weight: 800; }
+.pw-small { font-size: .82rem; color: #5b6a74; }
+.pw-sign { text-align: right; font-weight: 700; }
+@page { size: A4; margin: 14mm 14mm 16mm; }
+@media print {
+  .topbar, .footer, .btn, .work-privacy, .crumbs, .no-print { display: none !important; }
+  html, body { background: #fff; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  main { max-width: none; padding: 0; }
+  .work-summary { border: 0; }
+  .print-book { margin: 0; }
+  .pw-page { margin: 0; padding: 0; border: 0; box-shadow: none; border-radius: 0; font-size: 11pt; }
+  .pw-page + .pw-page { break-before: page; }
+  .pw-cover { border-top: 8px solid #1d2f45; padding-top: 6mm; }
+  .pw-box { min-height: 50mm; line-height: 8mm; padding: 0 4mm; background-image: repeating-linear-gradient(transparent 0 7.55mm, #cfdde2 7.55mm 8mm); background-origin: padding-box; }
+  .pw-box.short { min-height: 12mm; }
+}

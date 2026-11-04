@@ -8,7 +8,7 @@
 
   var FEE_RATE = 0.1; // メルカリ販売手数料（2026-10-28確認）。validate.py と合わせる
   var app = document.getElementById("app");
-  var DB = { meta: null, parts: [], sections: {}, order: [], questions: [], qById: {}, sources: {}, chara: {}, images: {} };
+  var DB = { meta: null, parts: [], sections: {}, order: [], questions: [], qById: {}, sources: {}, chara: {}, images: {}, work: null };
   var session = null; // 解答中の問題セッション（教科書を見に行っても保持する）
 
   var BOX_LABEL = {
@@ -164,7 +164,8 @@
         Promise.all(meta.questionFiles.map(getJSON)),
         getJSON("sources.json"),
         getJSON("characters.json"),
-        getJSON("images.json")
+        getJSON("images.json"),
+        meta.workbookFile ? getJSON(meta.workbookFile) : null
       ]);
     }).then(function (res) {
       DB.parts = res[0].sort(function (a, b) { return a.part.order - b.part.order; });
@@ -182,6 +183,7 @@
       res[2].sources.forEach(function (s) { DB.sources[s.id] = s; });
       DB.chara = res[3].characters;
       res[4].images.forEach(function (im) { DB.images[im.id] = im; });
+      DB.work = res[5];
     });
   }
 
@@ -220,6 +222,14 @@
         '<p>読んだ項目 <b>' + nRead + "</b> / " + DB.order.length + "</p>" + progressBar(nRead, DB.order.length) +
         '<p>ドリルで正解した問題 <b>' + nSolved + "</b> / " + DB.questions.length + "</p>" + progressBar(nSolved, DB.questions.length) +
         "</section>";
+    }
+
+    if (DB.work) {
+      var wDone = workDoneCount();
+      html += '<section><h2>自分の未来を書いてみる</h2><a class="work-card" href="#/work">' +
+        '<span class="work-catch">' + esc(DB.work.catch) + "</span><b>" + esc(DB.work.title) + "</b>" +
+        "<small>" + esc(DB.work.tagline) + "　全" + DB.work.works.length + "ワーク・書き込み式</small>" +
+        (wDone ? '<span class="tile-meter">' + wDone + "/" + DB.work.works.length + " 書いた</span>" : "") + "</a></section>";
     }
 
     html += '<section><h2>ジャンルから選ぶ</h2><div class="genre-tiles">' +
@@ -610,6 +620,183 @@
     });
   }
 
+  // ---------- 画面：ワークブック（書き込み式） ----------
+  // 書いた内容はこの端末の localStorage（hiden-work）にだけ保存し、どこにも送らない
+  function workAnswers() { return store("hiden-work") || {}; }
+  function workFieldIds(w) {
+    var ids = [];
+    w.items.forEach(function (it) {
+      if (!it.noBox) ids.push(it.id);
+      (it.fields || []).forEach(function (f) { ids.push(f.id); });
+    });
+    return ids;
+  }
+  function workDoneCount() {
+    var ans = workAnswers();
+    return DB.work.works.filter(function (w) {
+      return workFieldIds(w).some(function (id) { return String(ans[id] || "").trim(); });
+    }).length;
+  }
+  function workPrivacy() {
+    return '<p class="work-privacy">書いた内容は、<b>このスマホ（ブラウザ）の中だけ</b>に自動で保存されます。どこにも送られません。</p>';
+  }
+  function viewWorkHome() {
+    var W = DB.work, ans = workAnswers();
+    var html = '<section class="work-cover"><p class="work-catch">' + esc(W.catch) + "</p><h1>" + esc(W.title) + "</h1>" +
+      '<p class="work-tagline">' + esc(W.tagline) + "</p><p class=\"small muted\">" + esc(W.target) + "</p></section>" +
+      talk([
+        { who: "kawauso", face: "think", text: "自分のことを書くのって、ちょっと照れるね…。" },
+        { who: "matchan", text: "正解はないよ。書けない欄は飛ばしても大丈夫。" }
+      ]) +
+      '<div class="note-page"><h3>' + esc(W.intro.title) + "</h3><p><b>" + esc(W.intro.lead) + "</b></p>" +
+      W.intro.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
+      "<h3>" + esc(W.intro.stepsTitle) + '</h3><ol class="steps">' +
+      W.intro.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>" +
+      '<div class="memo"><p class="memo-title">' + esc(W.intro.note) + "</p></div></div>" + workPrivacy() +
+      '<ol class="work-list">' + W.works.map(function (w) {
+        var n = workFieldIds(w).filter(function (id) { return String(ans[id] || "").trim(); }).length;
+        return '<li><a href="#/work/' + esc(w.id) + '"><span class="work-no">' + esc(w.no) + "</span><b>" + esc(w.title) + "</b>" +
+          '<small>' + esc(w.lead) + "</small>" + (n ? '<span class="done-mark">書いた</span>' : "") + "</a></li>";
+      }).join("") + "</ol>" +
+      '<a class="btn primary big" href="#/work/' + esc(W.works[0].id) + '">WORK 01から書いてみる</a>' +
+      '<a class="btn ghost" href="#/work/summary">書いた内容をまとめて見る</a>' +
+      '<div class="btn-row"><a class="btn ghost" href="#/work/print">書いた内容を印刷</a><a class="btn ghost" href="#/work/print?blank=1">空欄の用紙を印刷</a></div>';
+    return html;
+  }
+  function workItemHtml(it, ans) {
+    var html = '<div class="work-item"><p class="work-q">' + esc(it.label) + "</p>" + (it.hint ? '<p class="work-hint">' + esc(it.hint) + "</p>" : "");
+    if (it.fields) {
+      html += '<p class="work-fields">' + it.fields.map(function (f) {
+        return "<label>" + esc(f.before) + '<input class="work-input' + (f.text ? " wide" : "") + '" data-work="' + esc(f.id) + '"' +
+          (f.text ? "" : ' inputmode="decimal"') + ' value="' + esc(ans[f.id] || "") + '" aria-label="' + esc(it.label + " " + f.before + f.unit) + '">' + esc(f.unit) + "</label>";
+      }).join("") + "</p>";
+    }
+    if (!it.noBox) {
+      html += it.short
+        ? '<input class="work-input full" data-work="' + esc(it.id) + '" value="' + esc(ans[it.id] || "") + '" aria-label="' + esc(it.label) + '">'
+        : '<textarea class="work-box" data-work="' + esc(it.id) + '" rows="4" aria-label="' + esc(it.label) + '">' + esc(ans[it.id] || "") + "</textarea>";
+    }
+    return html + "</div>";
+  }
+  function viewWork(id) {
+    var W = DB.work, i = W.works.map(function (w) { return w.id; }).indexOf(id);
+    if (i < 0) return viewNotFound();
+    var w = W.works[i], ans = workAnswers(), prev = W.works[i - 1], next = W.works[i + 1];
+    return '<p class="crumbs"><a href="#/work">' + esc(W.title) + "</a> › " + esc(w.no) + "</p>" +
+      '<header class="work-head"><span class="work-no">' + esc(w.no) + "</span><h1>" + esc(w.title) + "</h1></header>" +
+      '<p class="work-lead">' + esc(w.lead) + "</p>" +
+      '<div class="note-page">' + w.items.map(function (it) { return workItemHtml(it, ans); }).join("") +
+      '<p class="work-note">' + esc(w.note) + "</p></div>" +
+      '<div class="work-saved" id="work-saved" aria-live="polite">' + workPrivacy() + "</div>" +
+      '<nav class="pager">' +
+      (prev ? '<a class="btn ghost" href="#/work/' + esc(prev.id) + '"><small>前へ</small>' + esc(prev.title) + "</a>" : '<a class="btn ghost" href="#/work"><small>前へ</small>使い方</a>') +
+      (next ? '<a class="btn ghost" href="#/work/' + esc(next.id) + '"><small>次へ</small>' + esc(next.title) + "</a>" : '<a class="btn ghost" href="#/work/next"><small>次へ</small>' + esc(W.next.title) + "</a>") +
+      "</nav>" + '<a class="btn ghost" href="#/work">ワークの一覧に戻る</a>';
+  }
+  function viewWorkNext() {
+    var N = DB.work.next;
+    return '<p class="crumbs"><a href="#/work">' + esc(DB.work.title) + "</a> › " + esc(N.no) + "</p>" +
+      '<header class="work-head"><span class="work-no">' + esc(N.no) + "</span><h1>" + esc(N.title) + "</h1></header>" +
+      '<p class="work-lead">' + esc(N.lead) + "</p>" +
+      '<div class="note-page">' + N.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
+      '<div class="box check"><p class="box-title"><span class="box-icon" aria-hidden="true">☑</span>' + esc(N.listTitle) + "</p>" + listHtml(N.list) + "</div>" +
+      '<p class="work-cta">' + esc(N.cta) + "</p>" + N.notes.map(function (t) { return '<p class="small muted">' + esc(t) + "</p>"; }).join("") +
+      '<p class="work-sign">' + esc(N.sign) + "</p></div>" +
+      '<a class="btn primary big" href="#/work/print">書いた内容を印刷して残す<small>PDFで保存もできます</small></a>' +
+      '<a class="btn ghost" href="#/work/summary">書いた内容をまとめて見る</a>' +
+      '<div class="btn-row"><a class="btn ghost" href="#/work">ワークの一覧へ</a><a class="btn ghost" href="#/book">秘伝の書を読む</a></div>';
+  }
+  function workSummaryText() {
+    var ans = workAnswers(), out = [DB.work.title];
+    DB.work.works.forEach(function (w) {
+      out.push("", "■ " + w.no + "　" + w.title);
+      w.items.forEach(function (it) {
+        var parts = (it.fields || []).map(function (f) { return f.before + (ans[f.id] || "＿") + f.unit; });
+        if (!it.noBox && String(ans[it.id] || "").trim()) parts.push(ans[it.id]);
+        out.push(it.label, parts.length ? parts.join("\n") : "（未記入）");
+      });
+    });
+    return out.join("\n");
+  }
+  // 印刷用：PDFのワークブックと同じ並び（使い方 → WORK 01〜07 → NEXT STEP）。各ワークは1ページずつ。
+  // blank のときは空欄の用紙（手書き用）。書いていない欄も、手で書き足せるように枠を残す。
+  function viewWorkPrint(blank) {
+    var W = DB.work, ans = blank ? {} : workAnswers();
+    var d = new Date(), today = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日";
+    function answerBox(it) {
+      var v = String(ans[it.id] || "");
+      return '<div class="pw-box' + (it.short ? " short" : "") + '">' + esc(v) + "</div>";
+    }
+    var html = '<div class="no-print">' +
+      '<p class="crumbs"><a href="#/work">' + esc(W.title) + "</a> › 印刷</p>" +
+      "<h1>" + (blank ? "空欄の用紙を印刷" : "書いた内容を印刷") + "</h1>" +
+      '<p class="small">' + (blank
+        ? "手で書き込める、空欄のワークブックです。"
+        : "書いた内容を、ワークブックの形で印刷できます。書いていない欄は空いたままなので、あとから手で書き足せます。") + "</p>" +
+      '<button class="btn primary big" id="work-print">印刷・PDFで保存する</button>' +
+      '<p class="small muted">スマホでは、印刷の画面から「PDFとして保存」や「ファイルに保存」もできます（機種によって表示が違います）。</p>' +
+      '<a class="btn ghost" href="#/work/print' + (blank ? "" : "?blank=1") + '">' + (blank ? "書いた内容を印刷する" : "空欄の用紙を印刷する") + "</a>" +
+      '<a class="btn ghost" href="#/work">ワークの一覧へ</a>' +
+      '<p class="small muted">↓ 印刷される内容</p></div>' +
+      '<div class="print-book">' +
+      '<section class="pw-page pw-cover"><p class="pw-catch">' + esc(W.catch) + "</p><h2>" + esc(W.title) + "</h2>" +
+      '<p class="pw-tagline">' + esc(W.tagline) + "</p><p>" + esc(W.target) + "</p>" +
+      '<p class="pw-name">名前：<span></span></p><p class="pw-date">' + (blank ? "書いた日：<span></span>" : "印刷した日：" + today) + "</p>" +
+      '<h3>' + esc(W.intro.title) + "</h3><p><b>" + esc(W.intro.lead) + "</b></p>" +
+      W.intro.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
+      "<p><b>" + esc(W.intro.stepsTitle) + "</b></p><ol>" + W.intro.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>" +
+      '<p class="pw-note">' + esc(W.intro.note) + "</p></section>";
+    W.works.forEach(function (w) {
+      html += '<section class="pw-page"><p class="pw-no">' + esc(w.no) + "</p><h2>" + esc(w.title) + "</h2>" +
+        '<p class="pw-lead">' + esc(w.lead) + "</p>" +
+        w.items.map(function (it) {
+          return '<div class="pw-item"><p class="pw-q">' + esc(it.label) + "</p>" + (it.hint ? '<p class="pw-hint">' + esc(it.hint) + "</p>" : "") +
+            (it.fields ? '<p class="pw-fields">' + it.fields.map(function (f) {
+              return esc(f.before) + '<span class="pw-blank' + (f.text ? " wide" : "") + '">' + esc(ans[f.id] || "") + "</span>" + esc(f.unit);
+            }).join("　") + "</p>" : "") +
+            (it.noBox ? "" : answerBox(it)) + "</div>";
+        }).join("") +
+        '<p class="pw-note">' + esc(w.note) + "</p></section>";
+    });
+    var N = W.next;
+    html += '<section class="pw-page"><p class="pw-no">' + esc(N.no) + "</p><h2>" + esc(N.title) + "</h2>" +
+      '<p class="pw-lead">' + esc(N.lead) + "</p>" + N.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
+      "<p><b>" + esc(N.listTitle) + "</b></p>" + listHtml(N.list) +
+      '<p class="pw-cta">' + esc(N.cta) + "</p>" + N.notes.map(function (t) { return '<p class="pw-small">' + esc(t) + "</p>"; }).join("") +
+      '<p class="pw-sign">' + esc(N.sign) + "</p></section></div>";
+    return html;
+  }
+  function viewWorkSummary() {
+    return '<p class="crumbs"><a href="#/work">' + esc(DB.work.title) + "</a> › まとめ</p><h1>書いた内容のまとめ</h1>" + workPrivacy() +
+      '<pre class="work-summary">' + esc(workSummaryText()) + "</pre>" +
+      '<button class="btn primary" id="work-copy">まとめてコピーする</button>' +
+      '<a class="btn accent" href="#/work/print">ワークブックの形で印刷する</a>' +
+      '<button class="btn ghost danger" id="work-clear">書いた内容をすべて消す</button>' +
+      '<a class="btn ghost" href="#/work">ワークの一覧へ</a>';
+  }
+  function bindWork() {
+    var saved = document.getElementById("work-saved");
+    app.querySelectorAll("[data-work]").forEach(function (el) {
+      el.addEventListener("input", function () {
+        var ans = workAnswers(); ans[el.getAttribute("data-work")] = el.value; store("hiden-work", ans);
+        if (saved) saved.innerHTML = '<span class="work-ok">✓ 保存しました</span>（このスマホの中だけ）';
+      });
+    });
+    var copy = document.getElementById("work-copy");
+    if (copy) copy.addEventListener("click", function () {
+      var t = workSummaryText();
+      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
+        copy.textContent = "コピーしました";
+      }, function () { copy.textContent = "コピーできませんでした（上の文字を長押しで選べます）"; });
+    });
+    var pr = document.getElementById("work-print");
+    if (pr) pr.addEventListener("click", function () { window.print(); });
+    var cl = document.getElementById("work-clear");
+    if (cl) cl.addEventListener("click", function () {
+      if (window.confirm("このスマホに保存した、ワークの書き込みをすべて消します。よろしいですか？")) { store("hiden-work", {}); render(); }
+    });
+  }
+
   // ---------- 画面：出典・更新履歴 ----------
   function viewSources() {
     var STATUS = { verified: "本文を確認", partial: "一部を確認", "summary-only": "本文未確認（参考のみ）", own: "まっちゃんの素材" };
@@ -661,6 +848,11 @@
       html = viewPlay(); nav = "quiz";
     }
     else if (p[0] === "quiz") { html = viewQuizHome(); nav = "quiz"; }
+    else if (p[0] === "work" && DB.work) {
+      html = p[1] === "next" ? viewWorkNext() : p[1] === "summary" ? viewWorkSummary() : p[1] === "print" ? viewWorkPrint(r.params.blank === "1") :
+        p[1] ? viewWork(p[1]) : viewWorkHome();
+      nav = "work";
+    }
     else if (p[0] === "sources") html = viewSources();
     else if (p[0] === "updates") html = viewUpdates();
     else if (!p.length) html = viewHome();
@@ -670,7 +862,7 @@
     document.querySelectorAll("[data-nav]").forEach(function (a) {
       a.classList.toggle("active", a.getAttribute("data-nav") === nav);
     });
-    bindPlay(); bindResult();
+    bindPlay(); bindResult(); bindWork();
     var sh = document.getElementById("opt-shuffle");
     if (sh) sh.addEventListener("change", function () { store("hiden-shuffle", sh.checked); });
     var title = app.querySelector("h1");
