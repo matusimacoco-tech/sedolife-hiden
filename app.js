@@ -246,8 +246,23 @@
       '<a class="btn primary big" href="#/book">目次を見る<small>' + DB.order.length + "項目</small></a>" +
       '<a class="btn accent big" href="#/quiz">ドリルにチャレンジ！<small>' + DB.questions.length + "問</small></a>" +
       "</div>" +
+      '<section><h2>公式LINE</h2>' + lineBox() + "</section>" +
       '<p class="small muted center">最終更新：' + esc(m.updated) + "（v" + esc(m.version) + '）　<a href="#/updates">更新履歴</a></p>';
     return html;
+  }
+  // 公式LINEの入り口。スマホでは自分の画面のQRを読み取れないので、開くボタンも必ず並べる
+  function lineBox() {
+    var L = DB.meta.line;
+    if (!L) return "";
+    return '<div class="line-box"><a class="btn line-btn" href="' + esc(L.url) + '" target="_blank" rel="noopener">公式LINEを開く</a>' +
+      '<img class="line-qr" src="' + esc(L.qr) + '" width="540" height="540" alt="公式LINEのQRコード">' +
+      '<p class="small muted">パソコンで見ているときは、スマホのカメラでQRコードを読み取ってください。</p></div>';
+  }
+  function lineBoxPrint() {
+    var L = DB.meta.line;
+    if (!L) return "";
+    return '<div class="pw-line"><img src="' + esc(L.qr) + '" width="540" height="540" alt="公式LINEのQRコード">' +
+      "<p>スマホのカメラで読み取ると、公式LINEが開きます。<br>" + esc(L.url) + "</p></div>";
   }
   // 表紙の二人の紹介（初めて紹介する場所なので、かわのすけは「カワウソのかわのすけ」と書く）
   function profile(who) {
@@ -700,7 +715,7 @@
       '<p class="work-lead">' + esc(N.lead) + "</p>" +
       '<div class="note-page">' + N.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
       '<div class="box check"><p class="box-title"><span class="box-icon" aria-hidden="true">☑</span>' + esc(N.listTitle) + "</p>" + listHtml(N.list) + "</div>" +
-      '<p class="work-cta">' + esc(N.cta) + "</p>" + N.notes.map(function (t) { return '<p class="small muted">' + esc(t) + "</p>"; }).join("") +
+      '<p class="work-cta">' + esc(N.cta) + "</p>" + lineBox() + N.notes.map(function (t) { return '<p class="small muted">' + esc(t) + "</p>"; }).join("") +
       '<p class="work-sign">' + esc(N.sign) + "</p></div>" +
       '<a class="btn primary big" href="#/work/print">書いた内容を印刷して残す<small>PDFで保存もできます</small></a>' +
       '<a class="btn ghost" href="#/work/summary">書いた内容をまとめて見る</a>' +
@@ -762,7 +777,7 @@
     html += '<section class="pw-page"><p class="pw-no">' + esc(N.no) + "</p><h2>" + esc(N.title) + "</h2>" +
       '<p class="pw-lead">' + esc(N.lead) + "</p>" + N.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") +
       "<p><b>" + esc(N.listTitle) + "</b></p>" + listHtml(N.list) +
-      '<p class="pw-cta">' + esc(N.cta) + "</p>" + N.notes.map(function (t) { return '<p class="pw-small">' + esc(t) + "</p>"; }).join("") +
+      '<p class="pw-cta">' + esc(N.cta) + "</p>" + lineBoxPrint() + N.notes.map(function (t) { return '<p class="pw-small">' + esc(t) + "</p>"; }).join("") +
       '<p class="pw-sign">' + esc(N.sign) + "</p></section></div>";
     return html;
   }
