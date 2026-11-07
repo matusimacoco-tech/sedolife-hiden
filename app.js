@@ -256,7 +256,7 @@
     var L = DB.meta.line;
     if (!L) return "";
     return '<div class="line-box"><a class="btn line-btn" href="' + esc(L.url) + '" target="_blank" rel="noopener">公式LINEを開く</a>' +
-      (withConsult ? '<a class="btn line-btn line-consult" href="' + esc(L.url) + '" target="_blank" rel="noopener">個別相談の日程を相談する<small>無料・Zoom</small></a>' +
+      (withConsult ? '<a class="btn line-btn line-consult" href="' + esc(L.consultUrl) + '" target="_blank" rel="noopener">個別相談の日程を相談する<small>無料・Zoom</small></a>' +
         '<p class="small">公式LINEから「個別相談」と送ってください。</p>' +
         '<p class="small muted">相談内容に応じてスクールをご案内する場合がありますが、入会は任意です。</p>' : "") +
       '<img class="line-qr" src="' + esc(L.qr) + '" width="540" height="540" alt="公式LINEのQRコード">' +
