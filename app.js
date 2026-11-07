@@ -246,15 +246,19 @@
       '<a class="btn primary big" href="#/book">目次を見る<small>' + DB.order.length + "項目</small></a>" +
       '<a class="btn accent big" href="#/quiz">ドリルにチャレンジ！<small>' + DB.questions.length + "問</small></a>" +
       "</div>" +
-      '<section><h2>公式LINE</h2>' + lineBox() + "</section>" +
+      '<section><h2>公式LINE</h2>' + lineBox(true) + "</section>" +
       '<p class="small muted center">最終更新：' + esc(m.updated) + "（v" + esc(m.version) + '）　<a href="#/updates">更新履歴</a></p>';
     return html;
   }
   // 公式LINEの入り口。スマホでは自分の画面のQRを読み取れないので、開くボタンも必ず並べる
-  function lineBox() {
+  // withConsult：個別相談の入口も出す（ワークブックの最終ページは本文に案内があるので出さない）
+  function lineBox(withConsult) {
     var L = DB.meta.line;
     if (!L) return "";
     return '<div class="line-box"><a class="btn line-btn" href="' + esc(L.url) + '" target="_blank" rel="noopener">公式LINEを開く</a>' +
+      (withConsult ? '<a class="btn line-btn line-consult" href="' + esc(L.url) + '" target="_blank" rel="noopener">個別相談の日程を相談する<small>無料・Zoom</small></a>' +
+        '<p class="small">公式LINEから「個別相談」と送ってください。</p>' +
+        '<p class="small muted">相談内容に応じてスクールをご案内する場合がありますが、入会は任意です。</p>' : "") +
       '<img class="line-qr" src="' + esc(L.qr) + '" width="540" height="540" alt="公式LINEのQRコード">' +
       '<p class="small muted">パソコンで見ているときは、スマホのカメラでQRコードを読み取ってください。</p></div>';
   }
