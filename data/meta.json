@@ -3,8 +3,8 @@
   "author": "まっちゃん",
   "bookTitle": "仕入れ秘伝の書",
   "quizTitle": "せどらいふドリル",
-  "version": "0.4.2",
-  "updated": "2026-11-06",
+  "version": "0.4.3",
+  "updated": "2026-11-07",
   "bookFiles": [
     "book/kiso.json",
     "book/bag.json",
@@ -66,6 +66,13 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-07",
+      "version": "0.4.3",
+      "items": [
+        "表紙の公式LINE欄に、個別相談の入口を追加"
+      ]
+    },
     {
       "date": "2026-11-06",
       "version": "0.4.2",
