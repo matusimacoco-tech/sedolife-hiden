@@ -3,7 +3,7 @@
   "author": "まっちゃん",
   "bookTitle": "仕入れ秘伝の書",
   "quizTitle": "せどらいふドリル",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "updated": "2026-11-07",
   "bookFiles": [
     "book/kiso.json",
@@ -66,6 +66,13 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-07",
+      "version": "0.4.4",
+      "items": [
+        "個別相談のボタンから、入力欄に「個別相談」が入った状態で公式LINEを開けるように"
+      ]
+    },
     {
       "date": "2026-11-07",
       "version": "0.4.3",
@@ -159,6 +166,7 @@
   "workbookFile": "workbook.json",
   "line": {
     "url": "https://lin.ee/8FodbkE",
+    "consultUrl": "https://line.me/R/oaMessage/%40990symsg/?%E5%80%8B%E5%88%A5%E7%9B%B8%E8%AB%87",
     "qr": "img/line_qr.png"
   }
 }
