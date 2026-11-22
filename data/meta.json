@@ -3,13 +3,14 @@
   "author": "まっちゃん",
   "bookTitle": "仕入れ秘伝の書",
   "quizTitle": "せどらいふドリル",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "updated": "2026-11-22",
   "bookFiles": [
     "book/kiso.json",
     "book/bag.json",
     "book/pumps.json",
     "book/outer.json",
+    "book/wallet.json",
     "book/furoku.json"
   ],
   "questionFiles": [
@@ -19,7 +20,9 @@
     "questions/down.json",
     "questions/coat.json",
     "questions/mil.json",
-    "questions/leather.json"
+    "questions/leather.json",
+    "questions/fur.json",
+    "questions/wallet.json"
   ],
   "genres": [
     {
@@ -63,9 +66,30 @@
       "label": "レザー",
       "icon": "leather",
       "part": "outer"
+    },
+    {
+      "id": "fur",
+      "label": "ファー",
+      "icon": "fur",
+      "part": "outer"
+    },
+    {
+      "id": "wallet",
+      "label": "財布",
+      "icon": "wallet",
+      "part": "wallet"
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-22",
+      "version": "0.4.6",
+      "items": [
+        "財布編を新しく追加（黒レザーと形で候補を絞る／目立つデザインと表面の呼び方／財布の調べ方と見送るサイン）",
+        "アウター編にファージャケットの章を追加（フォックスとミンクを優先する／触る→タグ→ブランド→調べる）",
+        "ドリルに財布5問・ファー5問を追加。用語集に財布とファーの言葉を追加"
+      ]
+    },
     {
       "date": "2026-11-22",
       "version": "0.4.5",
