@@ -97,7 +97,9 @@
     down: '<path d="M18 10h20l8 8-4 6v22H14V24l-4-6z"/><path d="M14 22h28M14 30h28M14 38h28"/><path d="M28 10v36"/>',
     coat: '<path d="M20 8h16l8 8-2 32H14l-2-32z"/><path d="M28 8l-6 12 6 28 6-28z"/><circle cx="31" cy="28" r="1.4"/><circle cx="31" cy="36" r="1.4"/>',
     mil: '<path d="M18 12h20l8 8-2 22H12l-2-22z"/><path d="M12 42h32v4H12z"/><path d="M28 12v30"/><path d="M38 22l4 2"/>',
-    leather: '<path d="M18 10h20l8 8-2 28H12l-2-28z"/><path d="M18 10l10 14 10-14"/><path d="M28 24l6 22"/><path d="M14 30h8"/>'
+    leather: '<path d="M18 10h20l8 8-2 28H12l-2-28z"/><path d="M18 10l10 14 10-14"/><path d="M28 24l6 22"/><path d="M14 30h8"/>',
+    fur: '<path d="M18 14h20l8 8-2 24H12l-2-24z"/><path d="M28 18v28"/><path d="M14 16c2-5 6-5 8-2 1-4 5-4 6-1 1-3 5-3 6 1 2-3 6-3 8 2"/><path d="M12 30c2 1 2 3 0 4M44 30c-2 1-2 3 0 4"/>',
+    wallet: '<rect x="8" y="16" width="40" height="28" rx="5"/><path d="M8 24h40"/><path d="M34 30h14v8H34a4 4 0 0 1 0-8z"/><circle cx="35" cy="34" r="1.2"/>'
   };
   function icon(id, cls) {
     return '<svg class="gicon ' + (cls || "") + '" viewBox="0 0 56 56" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' +

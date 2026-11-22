@@ -25,6 +25,7 @@
   --g-bag: #c8322b;
   --g-pumps: #b03e6a;
   --g-outer: #2f7a55;
+  --g-wallet: #9a5b24;
   --g-furoku: #7a6a5c;
   --radius: 18px;
   --shadow: 0 2px 0 rgba(120, 80, 40, .08), 0 6px 18px rgba(120, 80, 40, .07);
@@ -153,7 +154,8 @@ main { max-width: 720px; margin: 0 auto; padding: 8px 16px 40px; outline: none; 
 .g-kiso { --gc: var(--g-kiso); }
 .g-bag { --gc: var(--g-bag); }
 .g-pumps { --gc: var(--g-pumps); }
-.g-outer, .g-down, .g-coat, .g-mil, .g-leather { --gc: var(--g-outer); }
+.g-outer, .g-down, .g-coat, .g-mil, .g-leather, .g-fur { --gc: var(--g-outer); }
+.g-wallet { --gc: var(--g-wallet); }
 .g-furoku { --gc: var(--g-furoku); }
 
 /* ---------- 目次 ---------- */
