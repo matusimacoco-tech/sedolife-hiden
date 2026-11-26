@@ -8,7 +8,7 @@
 
   var FEE_RATE = 0.1; // メルカリ販売手数料（2026-10-28確認）。validate.py と合わせる
   var app = document.getElementById("app");
-  var DB = { meta: null, parts: [], sections: {}, order: [], questions: [], qById: {}, sources: {}, chara: {}, images: {}, work: null };
+  var DB = { meta: null, parts: [], sections: {}, order: [], questions: [], qById: {}, sources: {}, chara: {}, images: {}, work: null, gate: null };
   var session = null; // 解答中の問題セッション（教科書を見に行っても保持する）
 
   var BOX_LABEL = {
@@ -167,7 +167,8 @@
         getJSON("sources.json"),
         getJSON("characters.json"),
         getJSON("images.json"),
-        meta.workbookFile ? getJSON(meta.workbookFile) : null
+        meta.workbookFile ? getJSON(meta.workbookFile) : null,
+        getJSON("gate.json").catch(function () { return null; })
       ]);
     }).then(function (res) {
       DB.parts = res[0].sort(function (a, b) { return a.part.order - b.part.order; });
@@ -186,6 +187,7 @@
       DB.chara = res[3].characters;
       res[4].images.forEach(function (im) { DB.images[im.id] = im; });
       DB.work = res[5];
+      DB.gate = res[6];
     });
   }
 
@@ -845,6 +847,73 @@
     return '<h1>ページが見つかりません</h1><a class="btn" href="#/">表紙に戻る</a>';
   }
 
+  // ---------- パスワード画面と、来た人数・ログイン数を数える ----------
+  // 設定は data/gate.json。passwordHash が空なら画面は出さない。countUrl が空なら数えない。
+  // 送るのは「種類（gate=画面まで来た／login=パスワードを入れた／open=中に入った）」と端末ごとのランダムな番号だけ。
+  // ドリルの答え・ワークに書いた内容・名前やメールは送らない。gate と open は1端末1日1回だけ送る。
+  function gateHash() { return DB.gate && DB.gate.passwordHash || ""; }
+  function unlocked() { return !gateHash() || store("hiden-gate") === gateHash(); }
+  function normalizePassword(s) { return String(s).normalize("NFKC").trim().toLowerCase(); }
+  function sha256(text) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+    });
+  }
+  function deviceId() {
+    var id = store("hiden-device");
+    if (!id) { id = Math.random().toString(36).slice(2) + Date.now().toString(36); store("hiden-device", id); }
+    return id;
+  }
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+  function count(ev, oncePerDay) {
+    var url = DB.gate && DB.gate.countUrl;
+    if (!url || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return; // 手元での確認は数えない
+    if (oncePerDay) {
+      var sent = store("hiden-count") || {};
+      if (sent[ev] === today()) return;
+      sent[ev] = today(); store("hiden-count", sent);
+    }
+    try {
+      fetch(url + (url.indexOf("?") < 0 ? "?" : "&") + "e=" + ev + "&d=" + encodeURIComponent(deviceId()),
+        { mode: "no-cors", keepalive: true }).catch(function () {});
+    } catch (e) { /* 数えられなくても教材はそのまま使える */ }
+  }
+  function viewGate() {
+    var G = DB.gate, L = DB.meta.line;
+    return '<section class="gate card">' +
+      '<h1>' + esc(DB.meta.bookTitle) + "</h1>" +
+      "<p>パスワードを入れると、秘伝の書・ドリル・ワークが開きます。</p>" +
+      '<form id="gate-form" autocomplete="off"><label for="gate-pw">パスワード</label>' +
+      '<input id="gate-pw" type="text" inputmode="text" autocapitalize="off" spellcheck="false" required>' +
+      '<p id="gate-msg" class="gate-msg" role="alert"></p>' +
+      '<button class="btn primary big" type="submit">開く</button></form>' +
+      '<div class="gate-ask"><p><b>パスワードは毎月変わります。</b><br>今月のパスワードは公式LINEで聞いてね。</p>' +
+      (G.askUrl ? '<a class="btn line-btn" href="' + esc(G.askUrl) + '" target="_blank" rel="noopener">公式LINEでパスワードを聞く</a>' : "") +
+      (L ? '<img class="line-qr" src="' + esc(L.qr) + '" width="540" height="540" alt="公式LINEのQRコード">' +
+        '<p class="small muted">パソコンで見ているときは、スマホのカメラでQRコードを読み取ってください。</p>' : "") +
+      "</div></section>";
+  }
+  function bindGate() {
+    var f = document.getElementById("gate-form");
+    if (!f) return;
+    f.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var pw = normalizePassword(document.getElementById("gate-pw").value);
+      sha256(DB.gate.salt + pw).then(function (h) {
+        if (h === gateHash()) {
+          store("hiden-gate", h);
+          count("login");
+          render();
+        } else {
+          document.getElementById("gate-msg").textContent = "パスワードがちがうみたい。今月のパスワードか、もう一度確かめてね。";
+        }
+      });
+    });
+  }
+
   // ---------- ルーティング ----------
   function parseHash() {
     var h = location.hash.replace(/^#/, "") || "/";
@@ -858,6 +927,15 @@
   var lastHash = null;
   function render() {
     var r = parseHash(), p = r.path, html, nav = "";
+    var locked = !unlocked();
+    document.body.classList.toggle("locked", locked);
+    if (locked) {
+      app.innerHTML = viewGate();
+      document.title = "仕入れ秘伝の書｜せどらいふ";
+      bindGate(); count("gate", true);
+      return;
+    }
+    count("open", true);
     if (p[0] === "book" && p[1]) { html = viewSection(p[1]); nav = "book"; }
     else if (p[0] === "book") { html = viewToc(); nav = "book"; }
     else if (p[0] === "quiz" && p[1] === "play") {
