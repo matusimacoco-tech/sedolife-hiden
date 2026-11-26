@@ -3,8 +3,8 @@
   "author": "まっちゃん",
   "bookTitle": "仕入れ秘伝の書",
   "quizTitle": "せどらいふドリル",
-  "version": "0.4.6",
-  "updated": "2026-11-22",
+  "version": "0.4.7",
+  "updated": "2026-11-26",
   "bookFiles": [
     "book/kiso.json",
     "book/bag.json",
@@ -81,6 +81,13 @@
     }
   ],
   "changelog": [
+    {
+      "date": "2026-11-26",
+      "version": "0.4.7",
+      "items": [
+        "12月1日からパスワード画面を付けます（パスワードは毎月変わります。今月のパスワードは公式LINEで聞けます）"
+      ]
+    },
     {
       "date": "2026-11-22",
       "version": "0.4.6",
